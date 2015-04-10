@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Rules>
+
+    <Rule id="CODISCOPE-SQL-001" lang="java">
+        <Category>Query Injection</Category>
+        <Title>SQL Injection</Title>
+        <Description>
+            Identifies dangerous method calls of the java.sql.Statement
+            class.
+        </Description>
+        <Match>
+            <QualifiedName><![CDATA[java.sql.Statement]]></QualifiedName>
+            <Method><![CDATA[(executeQuery|executeUpdate|execute|addBatch)\b]]></Method>
+        </Match>
+        <Standards>
+            <Standard file="about-sql-injection.xml">
+                <Context>J2EE</Context>
+            </Standard>
+        </Standards>
+    </Rule>
+
+</Rules>
