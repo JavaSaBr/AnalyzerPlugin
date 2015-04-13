@@ -4,6 +4,13 @@ import com.instonctools.analyzer.model.match.Match;
 import com.instonctools.analyzer.model.match.method.Method;
 import com.instonctools.analyzer.model.match.qualified.QualifiedName;
 import com.instonctools.analyzer.model.rule.Rule;
+import com.instonctools.analyzer.service.MarkerService;
+import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.module.Module;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.roots.ProjectFileIndex;
+import com.intellij.openapi.roots.ProjectRootManager;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.*;
 
 import java.util.List;
@@ -17,9 +24,22 @@ public class JavaPsiMethodVisiter extends JavaElementVisitor {
 
     private PsiJavaFile javaFile;
 
+    private Module module;
+
     public JavaPsiMethodVisiter(List<Rule> rules, PsiJavaFile javaFile) {
         this.javaFile = javaFile;
         this.rules = rules;
+
+        Project project = javaFile.getProject();
+        VirtualFile virtualFile = javaFile.getVirtualFile();
+
+        ProjectRootManager projectRootManager = ProjectRootManager.getInstance(project);
+        ProjectFileIndex fileIndex = projectRootManager.getFileIndex();
+        this.module = fileIndex.getModuleForFile(virtualFile);
+    }
+
+    public Module getModule() {
+        return module;
     }
 
     @Override
@@ -76,6 +96,9 @@ public class JavaPsiMethodVisiter extends JavaElementVisitor {
             if (!methodNames.contains(methodName)) {
                 continue;
             }
+
+            MarkerService markerService = ServiceManager.getService(MarkerService.class);
+            markerService.buildMarker(rule, getModule(), expression);
 
             System.out.println("SECURITY WARNING! " + methodClassName + "." + methodName + " in " + javaFile.getVirtualFile().getCanonicalPath());
         }

@@ -13,4 +13,6 @@ public interface RuleService {
     public List<Rule> getAllRules();
 
     public List<Rule> getRulesFor(Language language);
+
+    public Rule getRule(String id);
 }

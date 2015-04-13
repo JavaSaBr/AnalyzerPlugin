@@ -15,7 +15,7 @@ public class PsiFileVisiter extends PsiElementVisitor {
     public void visitElement(PsiElement element) {
         super.visitElement(element);
 
-        for(PsiElement child : element.getChildren()) {
+        for (PsiElement child : element.getChildren()) {
             child.accept(this);
         }
 

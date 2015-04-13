@@ -23,11 +23,14 @@ public class RuleServiceImpl implements RuleService {
 
     private final Map<Language, List<Rule>> languageRules;
 
+    private final Map<String, Rule> rules;
+
     private final List<Rule> allRules;
 
     public RuleServiceImpl() {
         this.allRules = new ArrayList<Rule>();
         this.languageRules = new HashMap<Language, List<Rule>>();
+        this.rules = new HashMap<String, Rule>();
         init();
     }
 
@@ -59,6 +62,7 @@ public class RuleServiceImpl implements RuleService {
                         languageRules.put(rule.getLanguage(), container);
                     }
 
+                    this.rules.put(rule.getId(), rule);
                     container.add(rule);
                 }
 
@@ -77,6 +81,11 @@ public class RuleServiceImpl implements RuleService {
     public List<Rule> getRulesFor(Language language) {
         List<Rule> rules = languageRules.get(language);
         return rules == null ? Collections.<Rule>emptyList() : rules;
+    }
+
+    @Override
+    public Rule getRule(String id) {
+        return rules.get(id);
     }
 }
 
