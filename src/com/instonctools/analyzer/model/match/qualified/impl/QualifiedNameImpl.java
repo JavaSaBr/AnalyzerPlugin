@@ -19,4 +19,11 @@ public class QualifiedNameImpl implements QualifiedName {
     public List<String> getClassNames() {
         return classNames;
     }
+
+    @Override
+    public String toString() {
+        return "QualifiedNameImpl{" +
+                "classNames=" + classNames +
+                '}';
+    }
 }

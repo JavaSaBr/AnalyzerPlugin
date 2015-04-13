@@ -16,4 +16,11 @@ public class CategoryImpl implements Category {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "CategoryImpl{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

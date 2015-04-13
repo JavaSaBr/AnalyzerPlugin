@@ -29,7 +29,7 @@ public class RuleImpl implements MutableRule {
     private Match match;
 
     public RuleImpl() {
-        this.standarts = new ArrayList<>();
+        this.standarts = new ArrayList<Standart>();
     }
 
     @Override
@@ -105,5 +105,18 @@ public class RuleImpl implements MutableRule {
     @Override
     public void removeStandart(Standart standart) {
         this.standarts.remove(standart);
+    }
+
+    @Override
+    public String toString() {
+        return "RuleImpl{" +
+                "standarts=" + standarts +
+                ", id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", language=" + language +
+                ", category=" + category +
+                ", match=" + match +
+                '}';
     }
 }

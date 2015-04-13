@@ -19,4 +19,11 @@ public class MethodImpl implements Method {
     public List<String> getMethodNames() {
         return methodNames;
     }
+
+    @Override
+    public String toString() {
+        return "MethodImpl{" +
+                "methodNames=" + methodNames +
+                '}';
+    }
 }

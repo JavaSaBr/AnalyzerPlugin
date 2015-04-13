@@ -26,4 +26,12 @@ public class StandartImpl implements Standart {
     public String getFile() {
         return file;
     }
+
+    @Override
+    public String toString() {
+        return "StandartImpl{" +
+                "file='" + file + '\'' +
+                ", context=" + context +
+                '}';
+    }
 }

@@ -1,6 +1,6 @@
 package com.instonctools.analyzer.finder;
 
-import com.instonctools.analyzer.finder.impl.JavaFileProblemFinder;
+import com.instonctools.analyzer.finder.java.impl.JavaFileProblemFinder;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiJavaFile;
 

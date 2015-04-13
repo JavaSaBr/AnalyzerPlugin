@@ -17,4 +17,11 @@ public class ContextImpl implements Context {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "ContextImpl{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

@@ -12,6 +12,7 @@ import com.instonctools.analyzer.model.lang.LanguageFactory;
 import com.instonctools.analyzer.model.match.Match;
 import com.instonctools.analyzer.model.match.MatchFactory;
 import com.instonctools.analyzer.model.match.method.Method;
+import com.instonctools.analyzer.model.match.method.MethodFactory;
 import com.instonctools.analyzer.model.match.qualified.QualifiedName;
 import com.instonctools.analyzer.model.match.qualified.QualifiedNameFactory;
 import com.instonctools.analyzer.model.rule.MutableRule;
@@ -42,8 +43,9 @@ public class XmlRuleBuilder implements RuleBuilder {
     public static final String NODE_STANDARDS = "Standards";
     public static final String NODE_METHOD = "Method";
     public static final String NODE_QUALIFIED_NAME = "QualifiedName";
-    public static final String NODE_STANDART = "Standart";
+    public static final String NODE_STANDARD = "Standard";
     public static final String NODE_CONTEXT = "Context";
+    public static final String NODE_DESCRIPTION = "Description";
 
     public static final String ATTR_ID = "id";
     public static final String ATTR_LANG = "lang";
@@ -126,13 +128,15 @@ public class XmlRuleBuilder implements RuleBuilder {
 
             String nodeName = node.getNodeName();
 
-            if(NODE_CATEGORY.equals(nodeName)) {
+            if (NODE_CATEGORY.equals(nodeName)) {
                 rule.setCategory(parseCategory(element));
-            } else if(NODE_TITLE.equals(nodeName)) {
+            } else if (NODE_TITLE.equals(nodeName)) {
                 rule.setTitle(parseTitle(element));
-            } else if(NODE_MATCH.equals(nodeName)) {
+            } else if (NODE_MATCH.equals(nodeName)) {
                 rule.setMatch(parseMatch(element));
-            } else if(NODE_STANDARDS.equals(nodeName)) {
+            } else if (NODE_DESCRIPTION.equals(nodeName)) {
+                rule.setDescription(parseDescription(element));
+            } else if (NODE_STANDARDS.equals(nodeName)) {
 
                 List<Standart> standarts = parseStandarts(element);
 
@@ -154,6 +158,14 @@ public class XmlRuleBuilder implements RuleBuilder {
     }
 
     private String parseTitle(Element element) {
+
+        String textContent = element.getTextContent();
+        textContent = textContent.trim();
+
+        return textContent;
+    }
+
+    private String parseDescription(Element element) {
 
         String textContent = element.getTextContent();
         textContent = textContent.trim();
@@ -187,7 +199,25 @@ public class XmlRuleBuilder implements RuleBuilder {
     }
 
     private Method parseMethod(Element element) {
-        return null;
+
+        String textContent = element.getTextContent();
+        textContent = textContent.trim();
+
+        List<String> methodNames = new ArrayList<String>();
+
+        if (textContent.contains("(") && textContent.contains(")")) {
+
+            int beginIndex = textContent.indexOf('(');
+            int endIndex = textContent.indexOf(')');
+
+            textContent = textContent.substring(beginIndex + 1, endIndex);
+        }
+
+        for (String name : textContent.split("[|]")) {
+            methodNames.add(name);
+        }
+
+        return MethodFactory.create(methodNames);
     }
 
     private QualifiedName parseQualifiedName(Element element) {
@@ -195,7 +225,9 @@ public class XmlRuleBuilder implements RuleBuilder {
         String textContent = element.getTextContent();
         textContent = textContent.trim();
 
-        return  QualifiedNameFactory.create(Arrays.asList(textContent.split("[|]")));
+        List<String> classNames = Arrays.asList(textContent.split("[|]"));
+
+        return QualifiedNameFactory.create(classNames);
     }
 
     private List<Standart> parseStandarts(Element parent) {
@@ -204,7 +236,7 @@ public class XmlRuleBuilder implements RuleBuilder {
 
         for (Node node = parent.getFirstChild(); node != null; node = node.getNextSibling()) {
 
-            if (node.getNodeType() != Node.ELEMENT_NODE || !NODE_STANDART.equals(node.getNodeName())) {
+            if (node.getNodeType() != Node.ELEMENT_NODE || !NODE_STANDARD.equals(node.getNodeName())) {
                 continue;
             }
 

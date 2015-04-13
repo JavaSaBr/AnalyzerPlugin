@@ -1,4 +1,4 @@
-package com.instonctools.analyzer.finder.impl;
+package com.instonctools.analyzer.finder.java.impl;
 
 import com.instonctools.analyzer.finder.ProblemFinder;
 import com.instonctools.analyzer.model.lang.LanguageFactory;
@@ -29,6 +29,8 @@ public class JavaFileProblemFinder implements ProblemFinder {
             return;
         }
 
+        JavaPsiMethodVisiter methodVisiter = new JavaPsiMethodVisiter(rules, javaFile);
+
         PsiClass[] classes = javaFile.getClasses();
 
         for (PsiClass javaClass : classes) {
@@ -36,8 +38,7 @@ public class JavaFileProblemFinder implements ProblemFinder {
             PsiMethod[] methods = javaClass.getMethods();
 
             for (PsiMethod psiMethod : methods) {
-
-                psiMethod.accept(null);
+                psiMethod.accept(methodVisiter);
             }
         }
     }

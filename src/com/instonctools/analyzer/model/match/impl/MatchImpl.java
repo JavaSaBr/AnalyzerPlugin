@@ -27,4 +27,12 @@ public class MatchImpl implements Match {
     public QualifiedName getQualifiedName() {
         return qualifiedName;
     }
+
+    @Override
+    public String toString() {
+        return "MatchImpl{" +
+                "qualifiedName=" + qualifiedName +
+                ", method=" + method +
+                '}';
+    }
 }

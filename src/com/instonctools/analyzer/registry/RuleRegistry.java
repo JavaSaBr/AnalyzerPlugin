@@ -19,7 +19,7 @@ public class RuleRegistry {
     private final Map<String, Rule> rules;
 
     private RuleRegistry() {
-        this.rules = new HashMap<>();
+        this.rules = new HashMap<String, Rule>();
     }
 
     public static RuleRegistry getInstance() {
@@ -27,7 +27,7 @@ public class RuleRegistry {
     }
 
     public List<Rule> getRules() {
-        return new ArrayList<>(rules.values());
+        return new ArrayList<Rule>(rules.values());
     }
 
     private void addRule(Rule rule) {
