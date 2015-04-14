@@ -1,6 +1,5 @@
 package com.instonctools.analyzer.component.state;
 
-import com.instonctools.analyzer.model.marker.SecurityMarker;
 import com.instonctools.analyzer.model.marker.impl.SecurityMarkerImpl;
 
 import java.util.ArrayList;

@@ -3,6 +3,7 @@ package com.instonctools.analyzer.finder.java.impl;
 import com.instonctools.analyzer.finder.ProblemFinder;
 import com.instonctools.analyzer.model.lang.LanguageFactory;
 import com.instonctools.analyzer.model.rule.Rule;
+import com.instonctools.analyzer.service.MarkerService;
 import com.instonctools.analyzer.service.RuleService;
 import com.intellij.lang.Language;
 import com.intellij.openapi.components.ServiceManager;
@@ -19,6 +20,10 @@ public class JavaFileProblemFinder implements ProblemFinder {
     public void find(PsiFile psiFile) {
 
         PsiJavaFile javaFile = (PsiJavaFile) psiFile;
+
+        MarkerService markerService = ServiceManager.getService(MarkerService.class);
+        markerService.clearMarkersFor(psiFile.getProject(), javaFile.getVirtualFile());
+
         Language language = javaFile.getLanguage();
         PsiElement context = javaFile.getContext();
 

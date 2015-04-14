@@ -8,6 +8,9 @@ import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by ronn on 10.04.15.
  */
@@ -43,22 +46,36 @@ public class AnalyzerProjectComponent implements ProjectComponent, PersistentSta
         componentState.addMarker((SecurityMarkerImpl) marker);
     }
 
+    public void removeMarker(SecurityMarker marker) {
+        List<SecurityMarkerImpl> markers = componentState.getMarkers();
+        markers.remove(marker);
+    }
+
     @Nullable
     @Override
     public ProjectComponentState getState() {
-        System.out.println("save state " + componentState);
         return componentState;
     }
 
     @Override
     public void loadState(ProjectComponentState componentState) {
-        System.out.println("load state " + componentState);
 
-        for(SecurityMarker marker : componentState.getMarkers()) {
+        for (SecurityMarker marker : componentState.getMarkers()) {
             marker.init();
         }
 
         this.componentState = componentState;
+    }
+
+    public List<SecurityMarker> getMarkers() {
+
+        List<SecurityMarker> result = new ArrayList<SecurityMarker>();
+
+        for (SecurityMarker marker : componentState.getMarkers()) {
+            result.add(marker);
+        }
+
+        return result;
     }
 
     @Override
