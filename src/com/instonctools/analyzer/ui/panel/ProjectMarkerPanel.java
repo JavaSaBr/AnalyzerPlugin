@@ -4,12 +4,10 @@ import com.instonctools.analyzer.model.marker.SecurityMarker;
 import com.instonctools.analyzer.ui.tree.MarkerTree;
 import com.instonctools.analyzer.ui.tree.model.MarkerTreeNode;
 import com.instonctools.analyzer.ui.tree.model.PsiFileTreeNode;
-import com.intellij.ide.impl.ProjectUtil;
 import com.intellij.openapi.editor.CaretModel;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.ScrollType;
 import com.intellij.openapi.editor.ScrollingModel;
-import com.intellij.openapi.editor.ex.util.EditorUtil;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.fileEditor.FileEditorProvider;
 import com.intellij.openapi.fileEditor.OpenFileDescriptor;
@@ -17,9 +15,7 @@ import com.intellij.openapi.fileEditor.ex.FileEditorProviderManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.ToolWindow;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
 import com.intellij.ui.components.JBScrollPane;
 
 import javax.swing.*;
@@ -57,18 +53,18 @@ public class ProjectMarkerPanel extends JPanel {
 
                 int row = markerTree.getRowForLocation(event.getX(), event.getY());
 
-                if(row == -1) {
+                if (row == -1) {
                     return;
                 }
 
                 TreePath treePath = markerTree.getPathForLocation(event.getX(), event.getY());
 
-                if(event.getClickCount() == 2) {
+                if (event.getClickCount() == 2) {
                     processOpen(row, treePath);
                 }
             }
         };
-        
+
         markerTree.addMouseListener(mouseListener);
     }
 
@@ -78,7 +74,7 @@ public class ProjectMarkerPanel extends JPanel {
         PsiFile file = null;
         SecurityMarker marker = null;
 
-        if(value instanceof MarkerTreeNode) {
+        if (value instanceof MarkerTreeNode) {
 
             MarkerTreeNode markerTreeNode = (MarkerTreeNode) value;
             PsiFileTreeNode node = (PsiFileTreeNode) markerTreeNode.getParent();
@@ -86,11 +82,11 @@ public class ProjectMarkerPanel extends JPanel {
             marker = (SecurityMarker) markerTreeNode.getValue();
             file = (PsiFile) node.getValue();
 
-        } else if(value instanceof PsiFileTreeNode) {
+        } else if (value instanceof PsiFileTreeNode) {
             file = (PsiFile) ((PsiFileTreeNode) value).getValue();
         }
 
-        if(file == null) {
+        if (file == null) {
             return;
         }
 
@@ -98,7 +94,7 @@ public class ProjectMarkerPanel extends JPanel {
 
         FileEditorProvider[] providers = FileEditorProviderManager.getInstance().getProviders(project, virtualFile);
 
-        if(providers.length < 1) {
+        if (providers.length < 1) {
             return;
         }
 
@@ -106,7 +102,7 @@ public class ProjectMarkerPanel extends JPanel {
         FileEditorManager fileEditorManager = FileEditorManager.getInstance(project);
         Editor editor = fileEditorManager.openTextEditor(descriptor, true);
 
-        if(marker != null) {
+        if (marker != null) {
 
             CaretModel caretModel = editor.getCaretModel();
             caretModel.moveToOffset(marker.getTextRange().getStartOffset());

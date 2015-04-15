@@ -5,6 +5,8 @@ import com.intellij.analysis.AnalysisScope;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.LangDataKeys;
+import com.intellij.openapi.fileEditor.FileEditor;
+import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
@@ -31,5 +33,12 @@ public class StartAnalyzeAction extends AnAction {
         }
 
         analysisScope.accept(new PsiFileVisiter());
+
+        FileEditorManager editorManager = FileEditorManager.getInstance(element.getProject());
+        FileEditor[] editors = editorManager.getAllEditors();
+
+        for (FileEditor editor : editors) {
+            editor.selectNotify();
+        }
     }
 }
