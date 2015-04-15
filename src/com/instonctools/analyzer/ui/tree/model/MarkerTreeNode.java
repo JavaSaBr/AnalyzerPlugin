@@ -3,7 +3,6 @@ package com.instonctools.analyzer.ui.tree.model;
 import com.instonctools.analyzer.model.marker.SecurityMarker;
 import com.instonctools.analyzer.ui.AnalyzerIcons;
 import com.instonctools.analyzer.ui.tree.MaskIcon;
-import com.intellij.icons.AllIcons;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.project.Project;

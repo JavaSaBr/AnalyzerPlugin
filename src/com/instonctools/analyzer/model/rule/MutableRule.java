@@ -3,7 +3,7 @@ package com.instonctools.analyzer.model.rule;
 import com.instonctools.analyzer.model.category.Category;
 import com.instonctools.analyzer.model.lang.Language;
 import com.instonctools.analyzer.model.match.Match;
-import com.instonctools.analyzer.model.standart.Standart;
+import com.instonctools.analyzer.model.standard.Standard;
 
 /**
  * Created by ronn on 09.04.15.
@@ -22,7 +22,7 @@ public interface MutableRule extends Rule {
 
     public void setMatch(Match match);
 
-    public void addStandart(Standart standart);
+    public void addStandart(Standard standard);
 
-    public void removeStandart(Standart standart);
+    public void removeStandart(Standard standard);
 }

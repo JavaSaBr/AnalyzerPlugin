@@ -8,9 +8,7 @@ import javax.swing.*;
  * Created by ronn on 14.04.15.
  */
 public enum MarkerSeverity {
-    MEDIUM(AnalyzerIcons.ICON_16x16_COLOR_M),
-
-    ;
+    MEDIUM(AnalyzerIcons.ICON_16x16_COLOR_M),;
 
     private final Icon icon;
 

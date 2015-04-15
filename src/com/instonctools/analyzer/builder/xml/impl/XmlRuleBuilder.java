@@ -18,8 +18,9 @@ import com.instonctools.analyzer.model.match.qualified.QualifiedNameFactory;
 import com.instonctools.analyzer.model.rule.MutableRule;
 import com.instonctools.analyzer.model.rule.Rule;
 import com.instonctools.analyzer.model.rule.RuleFactory;
-import com.instonctools.analyzer.model.standart.Standart;
-import com.instonctools.analyzer.model.standart.StandartFactory;
+import com.instonctools.analyzer.model.standard.Standard;
+import com.instonctools.analyzer.service.StandardService;
+import com.intellij.openapi.components.ServiceManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -138,11 +139,11 @@ public class XmlRuleBuilder implements RuleBuilder {
                 rule.setDescription(parseDescription(element));
             } else if (NODE_STANDARDS.equals(nodeName)) {
 
-                List<Standart> standarts = parseStandarts(element);
+                List<Standard> standards = parseStandarts(element);
 
-                if (!standarts.isEmpty()) {
-                    for (Standart standart : standarts) {
-                        rule.addStandart(standart);
+                if (!standards.isEmpty()) {
+                    for (Standard standard : standards) {
+                        rule.addStandart(standard);
                     }
                 }
             }
@@ -230,9 +231,9 @@ public class XmlRuleBuilder implements RuleBuilder {
         return QualifiedNameFactory.create(classNames);
     }
 
-    private List<Standart> parseStandarts(Element parent) {
+    private List<Standard> parseStandarts(Element parent) {
 
-        List<Standart> result = new ArrayList<Standart>();
+        List<Standard> result = new ArrayList<Standard>();
 
         for (Node node = parent.getFirstChild(); node != null; node = node.getNextSibling()) {
 
@@ -245,7 +246,14 @@ public class XmlRuleBuilder implements RuleBuilder {
             String file = element.getAttribute(ATTR_FILE);
             Context context = parseContext(element);
 
-            result.add(StandartFactory.create(file, context));
+            StandardService standartService = ServiceManager.getService(StandardService.class);
+            Standard standard = standartService.getStandardForFile(file);
+
+            if (standard == null) {
+                throw new RuntimeException("not found standard for file " + file);
+            }
+
+            result.add(standard);
         }
 
         return result;

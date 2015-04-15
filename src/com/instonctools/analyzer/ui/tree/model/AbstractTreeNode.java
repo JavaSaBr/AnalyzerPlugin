@@ -63,7 +63,7 @@ public class AbstractTreeNode implements TreeNode {
 
     @Override
     public boolean isLeaf() {
-        return children == null || !children.isEmpty();
+        return children == null || children.isEmpty();
     }
 
     @Override

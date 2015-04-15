@@ -56,7 +56,7 @@ public class ProjectTreeNode extends AbstractTreeNode {
 
         Set<VirtualFile> files = new HashSet<VirtualFile>();
 
-        for(SecurityMarker marker : markers) {
+        for (SecurityMarker marker : markers) {
             files.add(marker.getFile());
         }
 

@@ -1,7 +1,6 @@
 package com.instonctools.analyzer.ui.tree;
 
 import com.intellij.util.ui.UIUtil;
-import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;

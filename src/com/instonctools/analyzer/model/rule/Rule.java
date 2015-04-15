@@ -3,7 +3,7 @@ package com.instonctools.analyzer.model.rule;
 import com.instonctools.analyzer.model.category.Category;
 import com.instonctools.analyzer.model.lang.Language;
 import com.instonctools.analyzer.model.match.Match;
-import com.instonctools.analyzer.model.standart.Standart;
+import com.instonctools.analyzer.model.standard.Standard;
 
 import java.util.List;
 
@@ -24,5 +24,5 @@ public interface Rule {
 
     public Match getMatch();
 
-    public List<Standart> getStandarts();
+    public List<Standard> getStandards();
 }

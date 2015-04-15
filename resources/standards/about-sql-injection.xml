@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Standard>
+    <Title>SQL Injection</Title>
+
+    <ShortDescription>
+        SQL Injection occurs when the user supplies data that is
+        inappropriately used by the application to manipulate the
+        structure of a SQL query.
+    </ShortDescription>
+
+    <LongDescription>
+        SQL Injection can occur when unsanitized user input data is
+        used to dynamically construct a SQL query. This most
+        commonly occurs when SQL queries are assembled dynamically
+        with runtime data that can include injected SQL control
+        characters such as a single quote (‘), an equal sign (=), or
+        comment characters like double dash (--). A successful SQL
+        Injection exploit can: access sensitive data from the
+        database, modify database data, execute administrative
+        operations on the database (such as a database shutdown),
+        and issue commands on the operating system.
+    </LongDescription>
+
+    <Classifications>
+        <Classification source="Cigital">
+            <URL>http://www.cigital.com/papers/download/bsi11-taxonomy.pdf</URL>
+            <Name>
+                Input Validation and Representation - SQL Injection
+            </Name>
+        </Classification>
+        <Classification source="CWE">
+            <URL>http://cwe.mitre.org/data/definitions/89.html</URL>
+            <Name>
+                ID 89: Improper Sanitization of Special Elements used in
+                an SQL Command ('SQL Injection')
+            </Name>
+        </Classification>
+        <Classification source="WASC">
+            <URL>http://projects.webappsec.org/SQL-Injection</URL>
+            <Name>
+                Web Application Security Consortium ID 19: SQL Injection
+            </Name>
+        </Classification>
+        <Classification source="CAPEC">
+            <URL>http://capec.mitre.org/data/definitions/66.html</URL>
+            <Name>
+                Common Attack Pattern Enumeration and Classification ID
+                66: SQL Injection
+            </Name>
+        </Classification>
+        <Classification source="OWASP-2010">
+            <URL>http://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project</URL>
+            <Name>A1 Injection</Name>
+        </Classification>
+        <Classification source="SANS/CWE">
+            <URL>http://cwe.mitre.org/top25/archive/2010/2010_cwe_sans_top25.pdf</URL>
+            <Name>2010 Top 25 Most Dangerous Programming Errors</Name>
+        </Classification>
+    </Classifications>
+    <Contexts>
+        <Context name="J2EE" version="">
+            <CodeSamples>
+
+                <CodeSample type="Negative">
+                    <Description>
+                        The following example uses a java.sql.Statement
+                        object and appends the value of the orderId
+                        string to a query using string concatenation.
+                        This method leaves the query vulnerable to SQL
+                        Injection if the orderId isn't properly
+                        validated/sanitized.
+                    </Description>
+                    <Snippet><![CDATA[String orderId = getOrderIdFromUser();
+Statement stmt = con.createStatement(); 
+ResultSet rs = stmt.executeQuery("select * from Orders where order_id='" + orderId + "'");]]></Snippet>
+                    <Description>
+                        Because the query is constructed dynamically by
+                        concatenating a constant base query string and a
+                        user input string, the query only behaves
+                        correctly if user provided orderId does not
+                        contain a single-quote character. If an attacker
+                        enters the string "ORD-938411' OR 'a'='a" as the
+                        orderId, then the query becomes the following:
+                    </Description>
+                    <Snippet><![CDATA[select * from Orders
+where order_id='ORD-938411' OR 'a'='a';]]></Snippet>
+                    <Description>
+                        The addition of the OR 'a'='a' condition causes
+                        the where clause to always evaluate to true, so
+                        the query becomes logically equivalent to the
+                        much simpler query:
+                    </Description>
+                    <Snippet><![CDATA[select * from Orders;]]></Snippet>
+                    <Description>
+                        This simplification of the query allows the
+                        attacker to bypass the requirement that the
+                        query only return orders owned by the
+                        authenticated user; the query now returns all
+                        entries stored in the Orders table, regardless
+                        of their specified owner.
+                    </Description>
+                    <Snippet></Snippet>
+                    <Description>
+                        This next example examines the effects of a
+                        different malicious value passed to the query
+                        constructed and executed in the above example.
+                        If an attacker enters the string "ORD-938411';
+                        DELETE FROM Orders; --" as the orderId, then the
+                        query becomes the following two queries:
+                    </Description>
+                    <Snippet><![CDATA[SELECT * FROM Orders
+where order_id='ORD-938411';
+
+DELETE FROM Orders; --']]></Snippet>
+                    <Description>
+                        Many database servers, including Microsoft(R)
+                        SQL Server 2008, allow multiple SQL statements
+                        separated by semicolons to be executed at once.
+                        While this attack string results in an error on
+                        Oracle and other database servers that do not
+                        allow the batch-execution of statements
+                        separated by semicolons, on databases that do
+                        allow batch execution, this type of attack
+                        allows the attacker to execute arbitrary
+                        commands against the database. Notice the
+                        trailing pair of hyphens (--), which specifies
+                        to most database servers that the remainder of
+                        the statement is to be treated as a comment and
+                        not executed.
+                    </Description>
+                    <Snippet></Snippet>
+                    <Description>
+                        Another common mistake when trying to prevent
+                        SQL Injection attacks is the incorrect use of
+                        the PreparedStatement. In this next example, a
+                        PreparedStatement is being used but the query is
+                        built in an unsafe manner. Some developers
+                        mistakenly think the PreparedStatement object is
+                        encoding or escaping dangerous characters prior
+                        to sending the query to the database. This is
+                        not the case.
+                    </Description>
+                    <Snippet><![CDATA[String orderId = getOrderIdFromUser();
+PreparedStatement stmt = con.prepareStatement("select * from Orders where order_id='" + orderId + "'"); 
+ResultSet rs = stmt.executeQuery();]]></Snippet>
+                </CodeSample>
+
+                <CodeSample type="Positive">
+                    <Description>
+                        The next example uses a
+                        java.sql.PreparedStatement object (rather than
+                        java.sql.Statement) and binds the value of the
+                        orderId variable to the query parameter. This is
+                        the preferred method for executing queries with
+                        JDBC as the parameters are sent to the database
+                        where they are safely interpreted.
+                    </Description>
+                    <Snippet><![CDATA[String orderId = getOrderIdFromUser();
+PreparedStatement stmt = con.prepareStatement("select * from Orders where order_id=?"); 
+stmt.setString(1, orderId);
+ResultSet rs = stmt.executeQuery();]]></Snippet>
+                </CodeSample>
+            </CodeSamples>
+
+            <Recommendations>
+                <Recommendation>
+                    The solution to this vulnerability is to prevent
+                    user input from being interpreted as executable
+                    statements. This is commonly accomplished using a
+                    PreparedStatement or stored procedures. When using a
+                    PreparedStatement, make sure user provided data is
+                    not concatenated to the query string but instead
+                    assigned to a parameter. The PreparedStatement
+                    object does not encode data before sending it to the
+                    database. When stored procedures are used, make sure
+                    the query in the database is not executed as a
+                    string concatenated with user supplied data. If it
+                    is, the stored procedure can be vulnerable to SQL
+                    Injection just like the Java code.
+                </Recommendation>
+            </Recommendations>
+
+            <References>
+                <Reference type="External">
+                    <URL>http://download.oracle.com/oll/tutorials/SQLInjection/index.htm</URL>
+                    <Description>
+                        A tutorial by Oracle on defending against SQL Injection attacks.
+                    </Description>
+                </Reference>
+                <Reference type="External">
+                    <URL>http://msdn.microsoft.com/en-us/library/ms161953.aspx</URL>
+                    <Description>
+                        A Microsoft(R) article which talks about SQL Injection.
+                    </Description>
+                </Reference>
+                <Reference type="External">
+                    <URL>http://www.owasp.org/index.php/SQL_Injection</URL>
+                    <Description>
+                        "SQL Injection OWASP." OWASP. 14 Dec. 2007. 19 Mar. 2008
+                    </Description>
+                </Reference>
+                <Reference type="RelatedStandard">
+                    <URL>csa_rulepack/java-struts-input-validation.xml$context1=J2EE</URL>
+                    <Description>Struts Input Validation</Description>
+                </Reference>
+                <!-- TODO: Original document makes reference to JSTL related standard which does not appear here
+-->
+            </References>
+        </Context>
+        <Context name="Hibernate">
+            <CodeSamples>
+                <CodeSample type="Negative">
+                    <Description>
+                        The following example uses a
+                        org.hibernate.Session object as well as a
+                        org.hibernate.Query object and appends the value
+                        of the orderId string to a query using string
+                        concatenation. This method leaves the query
+                        vulnerable to SQL Injection if the orderId isn't
+                        properly validated/sanitized.
+                    </Description>
+                    <Snippet><![CDATA[String orderId = getOrderIdFromUser();
+Query q = session.createQuery("SELECT order.name FROM Order AS order WHERE order.orderID = '"+taint+"'");
+List results = q.list();]]></Snippet>
+                    <Description>
+                        Because the query is constructed dynamically by
+                        concatenating a constant base query string and a
+                        user input string, the query only behaves
+                        correctly if user provided orderId does not
+                        contain a single-quote character. If an attacker
+                        enters the string "ORD-938411' OR 'a'='a" as the
+                        orderId, then the query becomes the following:
+                    </Description>
+                    <Snippet>
+                        <![CDATA[SELECT order.name FROM Order AS order WHERE order_id='ORD-938411' OR 'a'='a']]></Snippet>
+                    <Description>
+                        The addition of the OR 'a'='a' condition causes
+                        the where clause to always evaluate to true, so
+                        the query becomes logically equivalent to the
+                        much simpler query:
+                    </Description>
+                    <Snippet><![CDATA[SELECT order.name FROM Order AS orders;]]></Snippet>
+                    <Description>
+                        This simplification of the query allows the
+                        attacker to bypass the requirement that the
+                        query only return orders owned by the
+                        authenticated user; the query now returns the
+                        names of all entries stored in the Orders table,
+                        regardless of their specified owner.
+                    </Description>
+                    <Snippet></Snippet>
+                    <Description>
+                        The following example shows the use of the
+                        deprecated find() method, which should not be
+                        used. Instead, use createQuery() when querying
+                        the database.
+                    </Description>
+                    <Snippet><![CDATA[String orderId = getOrderIdFromUser();
+Query q = session.createQuery("SELECT order.name FROM Order AS order WHERE order.orderID = '"+orderId+"'");
+List results = q.list();]]></Snippet>
+
+                    <Description>
+                        Another common mistake when trying to prevent
+                        SQL Injection attacks is the incorrect use of
+                        the prepared statement. In this next example, a
+                        prepared statement is being used but the query
+                        is built in an unsafe manner. Some developers
+                        mistakenly think the createQuery() method is
+                        encoding or escaping dangerous characters prior
+                        to sending the query to the database. This is
+                        not the case.
+                    </Description>
+                    <Snippet><![CDATA[String orderId = getOrderIdFromUser();
+Query q = session.createQuery("SELECT order.name FROM Order AS order WHERE order.orderID = '"+orderId+"'");
+List results = q.list();]]></Snippet>
+                </CodeSample>
+
+                <CodeSample type="Positive">
+                    <Description>
+                        The next example uses a the same createQuery
+                        method used in the previous example, but binds
+                        the value of the orderId variable to the query
+                        parameter. This is the preferred method for
+                        executing queries with hibernate as the
+                        parameters are sent to the database where they
+                        are safely interpreted.
+                    </Description>
+                    <Snippet><![CDATA[String orderId = getOrderIdFromUser();
+Query q = session.createQuery("SELECT order.name FROM Order AS order WHERE order.orderId = '?'");
+q.setString(0, orderId);
+List results = q.list();]]></Snippet>
+                </CodeSample>
+            </CodeSamples>
+
+            <Recommendations>
+                <Recommendation>
+                    The solution to this vulnerability is to prevent
+                    user input from being interpreted as executable
+                    statements. This is commonly accomplished using a
+                    prepared statement or stored procedures. When using
+                    a prepared statement, make sure user provided data
+                    is not concatenated to the query string but instead
+                    assigned to a parameter, called a named or
+                    positional parameter in hibernate. When stored
+                    procedures are used, make sure the query in the
+                    database is not executed as a string concatenated
+                    with user supplied data. If it is, the stored
+                    procedure can be vulnerable to SQL Injection just
+                    like the Java code.
+                </Recommendation>
+            </Recommendations>
+
+            <References>
+                <Reference type="External">
+                    <URL>http://st-curriculum.oracle.com/tutorial/SQLInjection/index.htm</URL>
+                    <Description>
+                        A tutorial by Oracle on defending against SQL Injection attacks.
+                    </Description>
+                </Reference>
+                <Reference type="External">
+                    <URL>http://msdn.microsoft.com/en-us/library/ms161953.aspx</URL>
+                    <Description>
+                        A Microsoft(R) article which talks about SQL Injection.
+                    </Description>
+                </Reference>
+                <Reference type="External">
+                    <URL>http://www.owasp.org/index.php/SQL_Injection</URL>
+                    <Description>
+                        "SQL Injection OWASP." OWASP. 14 Dec. 2007. 19 Mar. 2008
+                    </Description>
+                </Reference>
+                <Reference type="External">
+                    <URL>http://www.owasp.org/index.php/Hibernate</URL>
+                    <Description>
+                        "Hibernate" OWASP. 20 Apr. 2009
+                    </Description>
+                </Reference>
+                <!-- TODO: Original document makes reference to JSTL related standard which does not appear here
+-->
+            </References>
+        </Context>
+        <Context name=".NET">
+            <CodeSamples>
+                <CodeSample type="Negative">
+                    <Description>
+                        The following example uses a System.Data.SqlClient.SqlCommand
+                        object and appends the values of the email and password
+                        parameters to a query using string concatenation.
+                        This method leaves the query vulnerable to SQL
+                        Injection if the email or password parameters aren't properly
+                        validated/sanitized.
+                    </Description>
+                    <Snippet><![CDATA[public int Authenticate(string email, string password)
+{
+    SqlConnection dbConn = new SqlConnection(dbConnStr);
+    object returnValue;
+	  dbConn.Open();
+    SqlCommand cmd = dbConn.CreateCommand();
+    cmd.CommandText = "SELECT UserId FROM UserInfo" +
+        " WHERE EmailAddress = '" + email +
+        "' AND Password = '" + password + "'";
+    cmd.CommandType = CommandType.Text;
+    returnValue = cmd.ExecuteScalar();
+    return ((int)returnValue);
+}]]></Snippet>
+                    <Description>
+                        Because the query is constructed dynamically by concatenating
+                        a constant base query string and a user input string, the query
+                        only behaves correctly if the user provided data does not
+                        contain database control characters.
+                        If an attacker enters the strings "myemail@domain.com" and
+                        "mypassword' OR 'a'='a" as the email and password parameters,
+                        then the query becomes the following:
+                    </Description>
+                    <Snippet><![CDATA[SELECT UserId
+FROM UserInfo
+WHERE EmailAddress = 'myemail@domain.com'
+ AND Password = 'mypassword' OR 'a'='a']]></Snippet>
+                    <Description>
+                        The addition of the string "' OR 'a'='a" to the password causes
+                        the where clause to always evaluate to true, so the query becomes
+                        logically equivalent to the much simpler query:
+                    </Description>
+                    <Snippet><![CDATA[SELECT UserId FROM UserInfo WHERE EmailAddress = 'myemail@domain.com']]></Snippet>
+                    <Description>
+                        This simplification of the query allows an attacker to bypass the
+                        requirement that they know the password associated with an email.
+                    </Description>
+                    <Snippet></Snippet>
+                    <Description>
+                        This next example examines the effects of a different malicious
+                        value passed to the query constructed and executed in the above
+                        example.
+                        If an attacker enters an email "myemail@domain.com'; DELETE FROM Orders; --"
+                        and a password of "mypassword",
+                        then the query becomes the following two queries:
+                    </Description>
+                    <Snippet><![CDATA[SELECT UserId FROM UserInfo WHERE EmailAddress = 'myemail@domain.com';
+DELETE FROM Orders; -- ' AND Password = 'mypassword']]></Snippet>
+                    <Description>
+                        Many database servers, including Microsoft(R)
+                        SQL Server 2008, allow multiple SQL statements
+                        separated by semicolons to be executed at once.
+                        While this attack string results in an error on
+                        Oracle and other database servers that do not
+                        allow the batch-execution of statements
+                        separated by semicolons, on databases that do
+                        allow batch execution, this type of attack
+                        allows the attacker to execute arbitrary
+                        commands against the database. Notice the
+                        trailing pair of hyphens (--), which specifies
+                        to most database servers that the remainder of
+                        the statement is to be treated as a comment and
+                        not executed.
+                    </Description>
+                    <Snippet></Snippet>
+                </CodeSample>
+                <CodeSample type="Positive">
+                    <Description>
+                        The next example uses a System.Data.SqlClient.SqlCommand object,
+                        but this time the parameters passed in to the Authenticate()
+                        method are bound to parameters in the query.
+                        This is the preferred method for executing queries to a database as
+                        the parameters cannot alter the meaning of the query.
+                        The parameters are passed to the database where they are safely
+                        interpreted.
+                    </Description>
+                    <Snippet><![CDATA[public int Authenticate(string email, string password)
+{
+    SqlConnection dbConn = new SqlConnection(dbConnStr);
+    object returnValue;
+    dbConn.Open();
+    SqlCommand cmd = dbConn.CreateCommand();
+    cmd.CommandText = "SELECT SELECT UserId FROM UserInfo" +
+        " WHERE EmailAddress = @email AND Password = @password";
+    cmd.Parameters.Add(new SqlParameter(
+        "@email", SqlDbType.VarChar, 100)).Value = email;
+    cmd.Parameters.Add(new SqlParameter(
+        "@password", SqlDbType.VarChar, 20)).Value = password;
+    cmd.CommandType = CommandType.Text;
+    returnValue = cmd.ExecuteScalar();
+    return ((int)returnValue);
+}]]></Snippet>
+                </CodeSample>
+            </CodeSamples>
+            <Recommendations>
+                <Recommendation>
+                    The solution to this vulnerability is to prevent user input from
+                    being interpreted as executable statements.
+                    This is commonly accomplished using proper parameter substitution
+                    when sending commands to the database.
+                    It is worth noting that when adding parameters to the
+                    System.Data.SqlClient.SqlCommand object, the data is not encoded
+                    before it is sent to the database.
+                    <p>
+                        When stored procedures are used, make sure the query in the database
+                        is not executed as a string concatenated with user supplied data.
+                        If string concatenation is used, the stored procedure can be
+                        vulnerable to SQL Injection just like the .NET code.
+                    </p>
+                </Recommendation>
+            </Recommendations>
+            <References>
+                <Reference type="External">
+                    <URL>http://st-curriculum.oracle.com/tutorial/SQLInjection/index.htm</URL>
+                    <Description>
+                        A tutorial by Oracle on defending against SQL Injection attacks.
+                    </Description>
+                </Reference>
+                <Reference type="External">
+                    <URL>http://msdn.microsoft.com/en-us/library/ms161953.aspx</URL>
+                    <Description>
+                        A Microsoft(R) article which talks about SQL Injection.
+                    </Description>
+                </Reference>
+                <Reference type="External">
+                    <URL>http://www.owasp.org/index.php/SQL_Injection</URL>
+                    <Description>
+                        "SQL Injection OWASP." OWASP. 14 Dec. 2007. 19 Mar. 2008
+                    </Description>
+                </Reference>
+            </References>
+        </Context>
+        <Context name="PHP" version="">
+            <CodeSamples>
+
+                <CodeSample type="Negative">
+                    <Description>
+                        The following example uses string concatenation to query through mysql_query().
+                        This method leaves the query vulnerable to SQL Injection if the orderId isn't properly
+                        validated/sanitized.
+                    </Description>
+                    <Snippet><![CDATA[<? php
+$oid = $_GET['orderId'];
+...
+$connect = mysql_connect($server, $user, $password);
+$query = mysql_query("select * from Orders where order_id=$oid");
+?>]]></Snippet>
+                    <Description>
+                        Because the query is constructed dynamically by
+                        concatenating a constant base query string and a
+                        user input string, the attacker can
+                        enter the string "ORD-938411' OR 'a'='a" as the
+                        orderId, then the query becomes the following:
+                    </Description>
+                    <Snippet><![CDATA[select * from Orders
+where order_id='ORD-938411' OR 'a'='a';]]></Snippet>
+                    <Description>
+                        The addition of the OR 'a'='a' condition causes
+                        the where clause to always evaluate to true, so
+                        the query becomes logically equivalent to the
+                        much simpler query:
+                    </Description>
+                    <Snippet><![CDATA[select * from Orders;]]></Snippet>
+                    <Description>
+                        This simplification of the query allows the
+                        attacker to bypass the requirement that the
+                        query only return orders owned by the
+                        authenticated user; the query now returns all
+                        entries stored in the Orders table, regardless
+                        of their specified owner.
+                    </Description>
+                    <Snippet></Snippet>
+                    <Description>
+                        This next example examines the effects of a
+                        different malicious value passed to the query
+                        constructed and executed in the above example.
+                        If an attacker enters the string "ORD-938411';
+                        delete from Orders; --" as the orderId, then the
+                        query becomes the following two queries:
+                    </Description>
+                    <Snippet><![CDATA[select * from Orders
+where order_id='ORD-938411';
+
+delete from Orders; --']]></Snippet>
+                    <Description>
+                        Many database servers, including Microsoft(R)
+                        SQL Server 2008, allow multiple SQL statements
+                        separated by semicolons to be executed at once.
+                        While this attack string results in an error on
+                        Oracle and other database servers that do not
+                        allow the batch-execution of statements
+                        separated by semicolons, on databases that do
+                        allow batch execution, this type of attack
+                        allows the attacker to execute arbitrary
+                        commands against the database. Notice the
+                        trailing pair of hyphens (--), which specifies
+                        to most database servers that the remainder of
+                        the statement is to be treated as a comment and
+                        not executed.
+                    </Description>
+                    <Snippet></Snippet>
+                </CodeSample>
+
+                <CodeSample type="Positive">
+                    <Description>
+                        The next example uses prepared statements to bind the value of the
+                        orderId variable to the query parameter. This is
+                        the preferred method for executing queries as the parameters are
+                        sent to the database where they are safely interpreted.
+                    </Description>
+                    <Snippet><![CDATA[<?php
+$oid = $_GET['orderId'];
+...
+$query = $dbh->prepare("select * from Orders where order_id = (:orderid)");
+$query->bindParam(':orderid', $oid);
+?>]]></Snippet>
+                </CodeSample>
+            </CodeSamples>
+
+            <Recommendations>
+                <Recommendation>
+                    The solution to this vulnerability is to prevent
+                    user input from being interpreted as executable
+                    statements. This is commonly accomplished using a
+                    PreparedStatement or stored procedures. When using a
+                    PreparedStatement, make sure user provided data is
+                    not concatenated to the query string but instead
+                    assigned to a parameter. The PreparedStatement
+                    object does not encode data before sending it to the
+                    database. When stored procedures are used, make sure
+                    the query in the database is not executed as a
+                    string concatenated with user supplied data. If it
+                    is, the stored procedure can be vulnerable to SQL
+                    Injection just like the PHP code.
+                </Recommendation>
+            </Recommendations>
+
+            <References>
+                <Reference type="External">
+                    <URL>http://st-curriculum.oracle.com/tutorial/SQLInjection/index.htm</URL>
+                    <Description>
+                        A tutorial by Oracle on defending against SQL Injection attacks.
+                    </Description>
+                </Reference>
+                <Reference type="External">
+                    <URL>http://msdn.microsoft.com/en-us/library/ms161953.aspx</URL>
+                    <Description>
+                        A Microsoft(R) article which talks about SQL Injection.
+                    </Description>
+                </Reference>
+                <Reference type="External">
+                    <URL>http://www.owasp.org/index.php/SQL_Injection</URL>
+                    <Description>
+                        "SQL Injection OWASP." OWASP. 14 Dec. 2007. 19 Mar. 2008
+                    </Description>
+                </Reference>
+                <Reference type="External">
+                    <URL>http://php.net/manual/en/security.database.sql-injection.php</URL>
+                    <Description>php.net SQL Injection - Manual</Description>
+                </Reference>
+            </References>
+        </Context>
+    </Contexts>
+</Standard>

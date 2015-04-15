@@ -1,8 +1,12 @@
 package com.instonctools.analyzer.ui;
 
 import com.instonctools.analyzer.model.marker.SecurityMarker;
+import com.instonctools.analyzer.model.rule.Rule;
+import com.instonctools.analyzer.model.standard.Standard;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.Function;
+
+import java.util.List;
 
 /**
  * Created by ronn on 14.04.15.
@@ -22,10 +26,17 @@ public class TooltipProvider implements Function<PsiElement, String> {
 
     public String getTooltipText() {
 
+        Rule rule = marker.getRule();
+        List<Standard> standards = rule.getStandards();
+
         final StringBuilder buffer = new StringBuilder();
         buffer.append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-        buffer.append("<HTML><HEAD>");
-        buffer.append("fWEFEFWEFWEWEFA EFAE FEGAE G");
+        buffer.append("<HTML><BODY>");
+
+        for (Standard standard : standards) {
+            buffer.append(standard.getShortDescription());
+        }
+
         buffer.append("</BODY></HTML>");
 
         return buffer.toString();

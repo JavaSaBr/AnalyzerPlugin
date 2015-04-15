@@ -1,15 +1,15 @@
 package com.instonctools.analyzer.service.impl;
 
+import com.instonctools.analyzer.builder.BuilderFactory;
 import com.instonctools.analyzer.builder.RuleBuilder;
-import com.instonctools.analyzer.builder.RuleBuilderFactory;
 import com.instonctools.analyzer.builder.xml.impl.XmlFileRuleSource;
 import com.instonctools.analyzer.model.lang.Language;
 import com.instonctools.analyzer.model.rule.Rule;
 import com.instonctools.analyzer.service.RuleService;
 
+import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -46,9 +46,9 @@ public class RuleServiceImpl implements RuleService {
 
             try {
 
-                XmlFileRuleSource fileRuleSource = new XmlFileRuleSource(Paths.get(resource.toURI()));
+                XmlFileRuleSource fileRuleSource = new XmlFileRuleSource(new File(resource.toURI()));
 
-                RuleBuilder builder = RuleBuilderFactory.getBuilderFor(fileRuleSource);
+                RuleBuilder builder = BuilderFactory.getRuleBuilderFor(fileRuleSource);
                 List<Rule> rules = builder.build(fileRuleSource);
 
                 allRules.addAll(rules);

@@ -48,6 +48,11 @@ public class MarkerTreeModel implements TreeModel {
 
     @Override
     public boolean isLeaf(Object node) {
+
+        if (node instanceof AbstractTreeNode) {
+            return ((AbstractTreeNode) node).isLeaf();
+        }
+
         return false;
     }
 

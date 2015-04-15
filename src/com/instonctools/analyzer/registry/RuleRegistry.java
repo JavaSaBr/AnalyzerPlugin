@@ -1,7 +1,7 @@
 package com.instonctools.analyzer.registry;
 
+import com.instonctools.analyzer.builder.BuilderFactory;
 import com.instonctools.analyzer.builder.RuleBuilder;
-import com.instonctools.analyzer.builder.RuleBuilderFactory;
 import com.instonctools.analyzer.builder.RuleSource;
 import com.instonctools.analyzer.model.rule.Rule;
 
@@ -41,7 +41,7 @@ public class RuleRegistry {
 
     public void register(RuleSource ruleSource) {
 
-        RuleBuilder builder = RuleBuilderFactory.getBuilderFor(ruleSource);
+        RuleBuilder builder = BuilderFactory.getRuleBuilderFor(ruleSource);
 
         for (Rule rule : builder.build(ruleSource)) {
             addRule(rule);

@@ -50,7 +50,7 @@ public class SecurityLineMarkerProvider implements LineMarkerProvider {
         TextRange textRange = marker.getTextRange();
         Icon icon = AnalyzerIcons.ICON_16x16_COLOR_M;
         TooltipProvider tooltipProvider = new TooltipProvider(marker);
-        IconNavigatorHandler navigatorHandler = new IconNavigatorHandler(element);
+        IconNavigatorHandler navigatorHandler = new IconNavigatorHandler(marker, element);
 
         // TODO how get warning color?
         EditorColorsScheme globalScheme = editorColorsManager.getGlobalScheme();

@@ -1,13 +1,13 @@
 package com.instinctools.analyzer.test;
 
+import com.instonctools.analyzer.builder.BuilderFactory;
 import com.instonctools.analyzer.builder.RuleBuilder;
-import com.instonctools.analyzer.builder.RuleBuilderFactory;
 import com.instonctools.analyzer.builder.xml.impl.XmlFileRuleSource;
 import org.junit.Test;
 
+import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Paths;
 
 /**
  * Created by ronn on 09.04.15.
@@ -21,9 +21,9 @@ public class TestParseRules {
 
         try {
 
-            XmlFileRuleSource fileRuleSource = new XmlFileRuleSource(Paths.get(resource.toURI()));
+            XmlFileRuleSource fileRuleSource = new XmlFileRuleSource(new File((resource.toURI())));
 
-            RuleBuilder builder = RuleBuilderFactory.getBuilderFor(fileRuleSource);
+            RuleBuilder builder = BuilderFactory.getRuleBuilderFor(fileRuleSource);
             builder.build(fileRuleSource);
         } catch (URISyntaxException e) {
             e.printStackTrace();

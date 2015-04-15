@@ -4,7 +4,7 @@ import com.instonctools.analyzer.model.category.Category;
 import com.instonctools.analyzer.model.lang.Language;
 import com.instonctools.analyzer.model.match.Match;
 import com.instonctools.analyzer.model.rule.MutableRule;
-import com.instonctools.analyzer.model.standart.Standart;
+import com.instonctools.analyzer.model.standard.Standard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class RuleImpl implements MutableRule {
 
-    private final List<Standart> standarts;
+    private final List<Standard> standards;
 
     private String id;
 
@@ -29,7 +29,7 @@ public class RuleImpl implements MutableRule {
     private Match match;
 
     public RuleImpl() {
-        this.standarts = new ArrayList<Standart>();
+        this.standards = new ArrayList<Standard>();
     }
 
     @Override
@@ -53,8 +53,8 @@ public class RuleImpl implements MutableRule {
     }
 
     @Override
-    public List<Standart> getStandarts() {
-        return standarts;
+    public List<Standard> getStandards() {
+        return standards;
     }
 
     @Override
@@ -98,19 +98,19 @@ public class RuleImpl implements MutableRule {
     }
 
     @Override
-    public void addStandart(Standart standart) {
-        this.standarts.add(standart);
+    public void addStandart(Standard standard) {
+        this.standards.add(standard);
     }
 
     @Override
-    public void removeStandart(Standart standart) {
-        this.standarts.remove(standart);
+    public void removeStandart(Standard standard) {
+        this.standards.remove(standard);
     }
 
     @Override
     public String toString() {
         return "RuleImpl{" +
-                "standarts=" + standarts +
+                "standards=" + standards +
                 ", id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +

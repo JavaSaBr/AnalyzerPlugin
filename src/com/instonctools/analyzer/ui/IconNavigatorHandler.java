@@ -1,5 +1,7 @@
 package com.instonctools.analyzer.ui;
 
+import com.instonctools.analyzer.model.marker.SecurityMarker;
+import com.instonctools.analyzer.ui.popup.MarkerDescriptionPopupHelper;
 import com.intellij.codeInsight.daemon.GutterIconNavigationHandler;
 import com.intellij.psi.PsiElement;
 
@@ -12,12 +14,15 @@ public class IconNavigatorHandler implements GutterIconNavigationHandler<PsiElem
 
     private final PsiElement element;
 
-    public IconNavigatorHandler(final PsiElement element) {
+    private final SecurityMarker marker;
+
+    public IconNavigatorHandler(final SecurityMarker marker, final PsiElement element) {
         this.element = element;
+        this.marker = marker;
     }
 
     @Override
     public void navigate(final MouseEvent event, final PsiElement lement) {
-        //TODO
+        MarkerDescriptionPopupHelper.show(marker);
     }
 }

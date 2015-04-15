@@ -14,11 +14,12 @@ import java.awt.*;
 /**
  * Created by ronn on 14.04.15.
  */
-public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer/*, TreeCellEditor*/ {
+public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer {
 
-    private static final Stroke _stroke = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{1, 1}, 0);
+    private static final Stroke STROKE = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{1, 1}, 0);
+
     private final boolean drawsFocusBorderAroundIcon;
-    private final int _hGap = 4;
+    private final int hGap = 4;
 
     private final JLabel icon;
 
@@ -52,13 +53,12 @@ public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer/*, 
 
         final double border = 0;
         final double rowsGap = 0;
-        final double colsGap = _hGap;
+        final double colsGap = hGap;
         final double[][] size = {{border, TableLayoutConstants.PREFERRED, colsGap, TableLayoutConstants.PREFERRED, colsGap, TableLayoutConstants.PREFERRED, colsGap, TableLayoutConstants.PREFERRED, border}, // Columns
                 {border, TableLayoutConstants.PREFERRED, border}};// Rows
         final LayoutManager tbl = new TableLayout(size);
         setLayout(tbl);
 
-        //setLayout(new BorderLayout(_hGap, 0));
         icon = new JLabel();
 
         title = new ValueLabel();
@@ -216,7 +216,7 @@ public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer/*, 
 
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-        g2d.setStroke(_stroke);
+        g2d.setStroke(STROKE);
 
         Color bColor;
 
@@ -265,7 +265,7 @@ public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer/*, 
             size.width += 50; //link
         }
 
-        size.width += _hGap; // BorderLayout hGap
+        size.width += hGap; // BorderLayout hGap
         size.height += 2;
 
         setSize(size);
@@ -278,7 +278,7 @@ public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer/*, 
 
 
     private int getIconLabelStart() {
-        return icon.getWidth() + _hGap - 2; // icon.getX();
+        return icon.getWidth() + hGap - 2; // icon.getX();
     }
 
 

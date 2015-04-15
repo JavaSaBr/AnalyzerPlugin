@@ -1,47 +1,61 @@
 <idea-plugin version="2">
-  <id>com.yourcompany.unique.plugin.id</id>
-  <name>Plugin display name here</name>
-  <version>1.0</version>
-  <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <id>com.instinctools.analyzer</id>
+    <name>Security Analyzer</name>
+    <version>1.0</version>
+    <vendor email="support@yourcompany.com" url="http://www.instinctools.com">Instinctools</vendor>
 
-  <description><![CDATA[
+    <description><![CDATA[
       Enter short description for your plugin here.<br>
       <em>most HTML tags may be used</em>
     ]]></description>
 
-  <change-notes><![CDATA[
+    <change-notes><![CDATA[
       Add change notes here.<br>
       <em>most HTML tags may be used</em>
     ]]>
-  </change-notes>
+    </change-notes>
 
-  <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
-  <idea-version since-build="131"/>
+    <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
+    <idea-version since-build="131"/>
 
-  <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
-       on how to target different products -->
-  <!-- uncomment to enable plugin in all products
-  <depends>com.intellij.modules.lang</depends>
-  -->
+    <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
 
-  <extensions defaultExtensionNs="com.intellij">
-    <!-- Add your extensions here -->
-  </extensions>
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceInterface="com.instonctools.analyzer.service.RuleService"
+                            serviceImplementation="com.instonctools.analyzer.service.impl.RuleServiceImpl"/>
+        <applicationService serviceInterface="com.instonctools.analyzer.service.StandardService"
+                            serviceImplementation="com.instonctools.analyzer.service.impl.StandardServiceImpl"/>
+        <applicationService serviceInterface="com.instonctools.analyzer.service.MarkerService"
+                            serviceImplementation="com.instonctools.analyzer.service.impl.MarkerServiceImpl"/>
+        <codeInsight.lineMarkerProvider language="JAVA"
+                                        implementationClass="com.instonctools.analyzer.ui.SecurityLineMarkerProvider"/>
+        <toolWindow id="Project Markers" anchor="bottom"
+                    factoryClass="com.instonctools.analyzer.ui.panel.ProjectMarkerPanelFactory"/>
+    </extensions>
 
-  <application-components>
-    <!-- Add your application components here -->
-  </application-components>
+    <application-components>
+        <!-- Add your application components here -->
+        <component>
+            <implementation-class>com.instonctools.analyzer.component.AnalyzerApplicationComponent
+            </implementation-class>
+        </component>
+    </application-components>
 
-  <project-components>
-    <!-- Add your project components here -->
-  </project-components>
+    <project-components>
+        <component>
+            <implementation-class>com.instonctools.analyzer.component.AnalyzerProjectComponent</implementation-class>
+        </component>
+    </project-components>
 
-  <actions>
-    <!-- Add your actions here -->
-    <group id="com.instinctools.testActionGroup" text="Test Actions" description="Test Actions Description">
-      <add-to-group group-id="MainMenu" anchor="last"  />
-      <action id="com.instinctools.testActionGroup.Textboxes" class="com.instonctools.analyzer.ui.TextBoxes" text="Text _Boxes" description="A test menu item" />
-    </group>
-  </actions>
-
+    <actions>
+        <action id="com.instinctools.analyzer.Review" class="com.instonctools.analyzer.ui.actions.StartAnalyzeAction"
+                text="Analyze security problems"
+                description="Start analyzing security problems">
+            <add-to-group group-id="AnalyzeMenu" anchor="first"/>
+        </action>
+    </actions>
 </idea-plugin>
