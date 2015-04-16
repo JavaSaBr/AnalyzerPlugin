@@ -80,29 +80,6 @@ public class SecurityMarkerImpl implements MutableSecurityMarker {
     }
 
     @Override
-    public boolean equals(Object o) {
-
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        SecurityMarkerImpl that = (SecurityMarkerImpl) o;
-
-        if (startOffset != that.startOffset) return false;
-        if (endOffset != that.endOffset) return false;
-        if (ruleId != null ? !ruleId.equals(that.ruleId) : that.ruleId != null) return false;
-        return !(filePath != null ? !filePath.equals(that.filePath) : that.filePath != null);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = ruleId != null ? ruleId.hashCode() : 0;
-        result = 31 * result + (filePath != null ? filePath.hashCode() : 0);
-        result = 31 * result + startOffset;
-        result = 31 * result + endOffset;
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "SecurityMarkerImpl{" +
                 "ruleId='" + ruleId + '\'' +

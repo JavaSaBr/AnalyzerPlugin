@@ -5,17 +5,13 @@ import com.instonctools.analyzer.service.MarkerService;
 import com.intellij.codeInsight.daemon.LineMarkerInfo;
 import com.intellij.codeInsight.daemon.LineMarkerProvider;
 import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.editor.colors.EditorColorsManager;
-import com.intellij.openapi.editor.colors.EditorColorsScheme;
 import com.intellij.openapi.editor.markup.GutterIconRenderer;
-import com.intellij.openapi.editor.markup.SeparatorPlacement;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethodCallExpression;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.Collection;
 import java.util.List;
 
@@ -24,12 +20,8 @@ import java.util.List;
  */
 public class SecurityLineMarkerProvider implements LineMarkerProvider {
 
-    private EditorColorsManager editorColorsManager;
-
     public SecurityLineMarkerProvider() {
         super();
-
-        this.editorColorsManager = EditorColorsManager.getInstance();
     }
 
     @Nullable
@@ -52,13 +44,7 @@ public class SecurityLineMarkerProvider implements LineMarkerProvider {
         TooltipProvider tooltipProvider = new TooltipProvider(marker);
         IconNavigatorHandler navigatorHandler = new IconNavigatorHandler(marker, element);
 
-        // TODO how get warning color?
-        EditorColorsScheme globalScheme = editorColorsManager.getGlobalScheme();
-
         LineMarkerInfo<PsiElement> markerInfo = new LineMarkerInfo<PsiElement>(element, textRange, icon, 4, tooltipProvider, navigatorHandler, GutterIconRenderer.Alignment.LEFT);
-        markerInfo.separatorColor = Color.ORANGE;
-        markerInfo.separatorPlacement = SeparatorPlacement.BOTTOM;
-
         return markerInfo;
     }
 

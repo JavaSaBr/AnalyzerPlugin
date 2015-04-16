@@ -35,6 +35,7 @@
                                         implementationClass="com.instonctools.analyzer.ui.SecurityLineMarkerProvider"/>
         <toolWindow id="Project Markers" anchor="bottom"
                     factoryClass="com.instonctools.analyzer.ui.panel.ProjectMarkerPanelFactory"/>
+        <annotator language="JAVA" implementationClass="com.instonctools.analyzer.ui.SecurityLineMarkerAnnotator"/>
     </extensions>
 
     <application-components>

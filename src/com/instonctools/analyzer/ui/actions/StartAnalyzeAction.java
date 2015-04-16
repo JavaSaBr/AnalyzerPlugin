@@ -1,12 +1,11 @@
 package com.instonctools.analyzer.ui.actions;
 
-import com.instonctools.analyzer.visiter.PsiFileVisiter;
+import com.instonctools.analyzer.util.Utils;
 import com.intellij.analysis.AnalysisScope;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.LangDataKeys;
-import com.intellij.openapi.fileEditor.FileEditor;
-import com.intellij.openapi.fileEditor.FileEditorManager;
+import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
@@ -26,19 +25,14 @@ public class StartAnalyzeAction extends AnAction {
             analysisScope = new AnalysisScope((PsiFile) element);
         } else if (element instanceof PsiDirectory) {
             analysisScope = new AnalysisScope((PsiDirectory) element);
+        } else if (element instanceof PsiClass) {
+            analysisScope = new AnalysisScope(element.getContainingFile());
         }
 
         if (analysisScope == null) {
             return;
         }
 
-        analysisScope.accept(new PsiFileVisiter());
-
-        FileEditorManager editorManager = FileEditorManager.getInstance(element.getProject());
-        FileEditor[] editors = editorManager.getAllEditors();
-
-        for (FileEditor editor : editors) {
-            editor.selectNotify();
-        }
+        Utils.startAnalyze(analysisScope, element.getProject(), true);
     }
 }

@@ -2,6 +2,7 @@ package com.instonctools.analyzer.ui.panel;
 
 import com.instonctools.analyzer.model.marker.SecurityMarker;
 import com.instonctools.analyzer.ui.tree.MarkerTree;
+import com.instonctools.analyzer.ui.tree.model.MarkerTreeModel;
 import com.instonctools.analyzer.ui.tree.model.MarkerTreeNode;
 import com.instonctools.analyzer.ui.tree.model.PsiFileTreeNode;
 import com.intellij.openapi.editor.CaretModel;
@@ -66,6 +67,10 @@ public class ProjectMarkerPanel extends JPanel {
         };
 
         markerTree.addMouseListener(mouseListener);
+    }
+
+    public void refresh() {
+        this.markerTree.setModel(new MarkerTreeModel(project));
     }
 
     private void processOpen(int selRow, TreePath selPath) {

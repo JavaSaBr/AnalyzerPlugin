@@ -99,8 +99,6 @@ public class JavaPsiMethodVisiter extends JavaElementVisitor {
 
             MarkerService markerService = ServiceManager.getService(MarkerService.class);
             markerService.buildMarker(rule, expression);
-
-            System.out.println("SECURITY WARNING! " + methodClassName + "." + methodName + " in " + javaFile.getVirtualFile().getCanonicalPath());
         }
     }
 

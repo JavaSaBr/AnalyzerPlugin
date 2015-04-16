@@ -52,7 +52,7 @@ public class MarkerTreeNode extends AbstractTreeNode {
 
     @Override
     public String getSimpleName() {
-        return "Line : " + line;
+        return "Line : " + (line + 1);
     }
 
     @Override

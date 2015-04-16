@@ -5,6 +5,9 @@ import com.instonctools.analyzer.model.marker.SecurityMarker;
 import com.instonctools.analyzer.model.marker.impl.SecurityMarkerImpl;
 import com.intellij.openapi.components.*;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,7 +33,9 @@ public class AnalyzerProjectComponent implements ProjectComponent, PersistentSta
     }
 
     public void initComponent() {
-        // TODO: insert component initialization logic here
+
+        PsiManager psiManager = PsiManager.getInstance(project);
+        psiManager.addPsiTreeChangeListener(new AnalyzerPsiTreeChangeListener(this));
     }
 
     public void disposeComponent() {
@@ -47,8 +52,34 @@ public class AnalyzerProjectComponent implements ProjectComponent, PersistentSta
     }
 
     public void removeMarker(SecurityMarker marker) {
+
         List<SecurityMarkerImpl> markers = componentState.getMarkers();
+
+        int count = markers.size();
+
         markers.remove(marker);
+
+        if (count - markers.size() != 1) {
+            System.out.println("WARNING FOR REMOVE MARKER");
+        }
+    }
+
+    public boolean hasMarkersFor(PsiFile file) {
+
+        VirtualFile virtualFile = file.getVirtualFile();
+        List<SecurityMarker> markers = getMarkers();
+
+        if (markers.isEmpty()) {
+            return false;
+        }
+
+        for (SecurityMarker marker : componentState.getMarkers()) {
+            if (virtualFile.equals(marker.getFile())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Nullable
