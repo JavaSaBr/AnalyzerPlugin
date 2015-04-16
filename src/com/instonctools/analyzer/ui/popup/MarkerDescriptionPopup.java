@@ -3,10 +3,13 @@ package com.instonctools.analyzer.ui.popup;
 import com.instonctools.analyzer.model.marker.SecurityMarker;
 import com.instonctools.analyzer.model.rule.Rule;
 import com.instonctools.analyzer.model.standard.Standard;
+import com.instonctools.analyzer.model.standard.StandartUtils;
 import com.intellij.ui.components.JBScrollPane;
+import org.xhtmlrenderer.simple.XHTMLPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 /**
@@ -17,18 +20,24 @@ public class MarkerDescriptionPopup extends JPanel {
     public MarkerDescriptionPopup(SecurityMarker marker) {
         super(new BorderLayout());
 
-        setMaximumSize(new Dimension(800, 800));
         Rule rule = marker.getRule();
         List<Standard> standards = rule.getStandards();
         Standard standard = standards.get(0);
 
-        JEditorPane editorPane = new JEditorPane();
-        editorPane.setContentType("text/plain");
-        editorPane.setText(standard.getLongDescription());
-        editorPane.setEditable(false);
+        String htmlContent = StandartUtils.getHtmlContent(standard);
+        htmlContent = htmlContent.replace("xmlns=\"http://www.w3.org/1999/xhtml\"", "");
+        htmlContent = htmlContent.replace("<META http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">", "");
+
+        XHTMLPanel xhtmlPanel = new XHTMLPanel();
+
+        try {
+            xhtmlPanel.setDocument(new ByteArrayInputStream(htmlContent.getBytes("UTF-8")), "olool");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         final JScrollPane scrollPane = new JBScrollPane(null);
-        scrollPane.setViewportView(editorPane);
+        scrollPane.setViewportView(xhtmlPanel);
 
         add(scrollPane, BorderLayout.CENTER);
     }

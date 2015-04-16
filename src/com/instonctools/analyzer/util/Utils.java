@@ -63,7 +63,7 @@ public class Utils {
 
     private static void updateEditors(final Project project, final boolean needRefresh) {
 
-        if(needRefresh) {
+        if (needRefresh) {
             DaemonCodeAnalyzer codeAnalyzer = DaemonCodeAnalyzer.getInstance(project);
             codeAnalyzer.restart();
         }

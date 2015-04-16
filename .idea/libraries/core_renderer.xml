@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="core-renderer">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/core-renderer.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/iText-2.0.8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

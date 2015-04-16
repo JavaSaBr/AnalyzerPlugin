@@ -18,7 +18,7 @@ public class MarkerDescriptionPopupHelper {
 
         ComponentPopupBuilder builder = popupFactory.createComponentPopupBuilder(new MarkerDescriptionPopup(marker), null);
         builder.setTitle("Marker description");
-        builder.setMinSize(new Dimension(400, 400));
+        builder.setMinSize(new Dimension(600, 400));
         builder.setResizable(true);
 
         JBPopup popup = builder.createPopup();

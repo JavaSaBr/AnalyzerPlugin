@@ -14,7 +14,7 @@
         used to dynamically construct a SQL query. This most
         commonly occurs when SQL queries are assembled dynamically
         with runtime data that can include injected SQL control
-        characters such as a single quote (‘), an equal sign (=), or
+        characters such as a single quote (), an equal sign (=), or
         comment characters like double dash (--). A successful SQL
         Injection exploit can: access sensitive data from the
         database, modify database data, execute administrative
