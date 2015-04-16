@@ -7,8 +7,9 @@ import java.io.InputStream;
 
 /**
  * Created by ronn on 09.04.15.
+ * //TODO need add documentation
  */
 public interface XmlStandardSource extends StandardSource {
 
-    public InputStream getStream() throws IOException;
+    InputStream getStream() throws IOException;
 }

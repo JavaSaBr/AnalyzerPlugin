@@ -6,6 +6,7 @@ import com.instonctools.analyzer.model.match.qualified.QualifiedName;
 
 /**
  * Created by ronn on 09.04.15.
+ * //TODO need add documentation
  */
 public class MatchImpl implements Match {
 

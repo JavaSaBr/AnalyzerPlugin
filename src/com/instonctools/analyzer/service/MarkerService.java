@@ -9,12 +9,13 @@ import com.intellij.psi.PsiMethodCallExpression;
 
 /**
  * Created by ronn on 13.04.15.
+ * //TODO need add documentation
  */
 public interface MarkerService {
 
-    public SecurityMarker buildMarker(Rule rule, PsiMethodCallExpression expression);
+    SecurityMarker buildMarker(Rule rule, PsiMethodCallExpression expression);
 
-    public SecurityMarker findMarkerFor(PsiElement element);
+    SecurityMarker findMarkerFor(PsiElement element);
 
-    public void clearMarkersFor(Project project, VirtualFile file);
+    void clearMarkersFor(Project project, VirtualFile file);
 }

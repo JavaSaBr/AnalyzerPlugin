@@ -5,10 +5,11 @@ import com.instonctools.analyzer.model.match.qualified.QualifiedName;
 
 /**
  * Created by ronn on 09.04.15.
+ * //TODO need add documentation
  */
 public interface Match {
 
-    public QualifiedName getQualifiedName();
+    QualifiedName getQualifiedName();
 
-    public Method getMethod();
+    Method getMethod();
 }

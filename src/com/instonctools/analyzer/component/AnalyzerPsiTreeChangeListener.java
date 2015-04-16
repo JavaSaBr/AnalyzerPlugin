@@ -9,6 +9,7 @@ import com.intellij.psi.PsiTreeChangeEvent;
 
 /**
  * Created by ronn on 16.04.15.
+ * //TODO need add documentation
  */
 public class AnalyzerPsiTreeChangeListener extends PsiTreeChangeAdapter {
 

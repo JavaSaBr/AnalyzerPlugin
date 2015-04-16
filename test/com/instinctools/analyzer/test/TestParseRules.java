@@ -2,11 +2,9 @@ package com.instinctools.analyzer.test;
 
 import com.instonctools.analyzer.builder.BuilderFactory;
 import com.instonctools.analyzer.builder.RuleBuilder;
-import com.instonctools.analyzer.builder.xml.impl.XmlFileRuleSource;
+import com.instonctools.analyzer.builder.xml.impl.XmlURLRuleSource;
 import org.junit.Test;
 
-import java.io.File;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 /**
@@ -21,11 +19,11 @@ public class TestParseRules {
 
         try {
 
-            XmlFileRuleSource fileRuleSource = new XmlFileRuleSource(new File((resource.toURI())));
+            XmlURLRuleSource fileRuleSource = new XmlURLRuleSource(resource);
 
             RuleBuilder builder = BuilderFactory.getRuleBuilderFor(fileRuleSource);
             builder.build(fileRuleSource);
-        } catch (URISyntaxException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

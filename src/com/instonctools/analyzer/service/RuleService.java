@@ -7,12 +7,13 @@ import java.util.List;
 
 /**
  * Created by ronn on 10.04.15.
+ * //TODO need add documentation
  */
 public interface RuleService {
 
-    public List<Rule> getAllRules();
+    List<Rule> getAllRules();
 
-    public List<Rule> getRulesFor(Language language);
+    List<Rule> getRulesFor(Language language);
 
-    public Rule getRule(String id);
+    Rule getRule(String id);
 }

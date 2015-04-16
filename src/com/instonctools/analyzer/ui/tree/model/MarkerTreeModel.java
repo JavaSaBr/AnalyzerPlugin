@@ -8,6 +8,7 @@ import javax.swing.tree.TreePath;
 
 /**
  * Created by ronn on 14.04.15.
+ * //TODO need add documentation
  */
 public class MarkerTreeModel implements TreeModel {
 

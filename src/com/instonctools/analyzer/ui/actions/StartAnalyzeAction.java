@@ -12,6 +12,7 @@ import com.intellij.psi.PsiFile;
 
 /**
  * Created by ronn on 10.04.15.
+ * //TODO need add documentation
  */
 public class StartAnalyzeAction extends AnAction {
 
@@ -20,6 +21,10 @@ public class StartAnalyzeAction extends AnAction {
 
         PsiElement element = event.getData(LangDataKeys.PSI_ELEMENT);
         AnalysisScope analysisScope = null;
+
+        if (element == null) {
+            element = event.getData(LangDataKeys.PSI_FILE);
+        }
 
         if (element instanceof PsiFile) {
             analysisScope = new AnalysisScope((PsiFile) element);

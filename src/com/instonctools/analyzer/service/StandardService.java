@@ -4,8 +4,9 @@ import com.instonctools.analyzer.model.standard.Standard;
 
 /**
  * Created by ronn on 15.04.15.
+ * //TODO need add documentation
  */
 public interface StandardService {
 
-    public Standard getStandardForFile(String filePath);
+    Standard getStandardForFile(String filePath);
 }

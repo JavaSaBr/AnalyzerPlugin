@@ -4,6 +4,7 @@ import com.instonctools.analyzer.model.context.Context;
 
 /**
  * Created by ronn on 09.04.15.
+ * //TODO need add documentation
  */
 public class ContextImpl implements Context {
 

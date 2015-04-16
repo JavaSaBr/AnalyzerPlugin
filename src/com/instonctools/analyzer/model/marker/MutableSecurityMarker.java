@@ -6,12 +6,13 @@ import com.intellij.openapi.vfs.VirtualFile;
 
 /**
  * Created by ronn on 13.04.15.
+ * //TODO need add documentation
  */
 public interface MutableSecurityMarker extends SecurityMarker {
 
-    public void setRule(Rule rule);
+    void setRule(Rule rule);
 
-    public void setFile(VirtualFile file);
+    void setFile(VirtualFile file);
 
-    public void setTextRange(TextRange textRange);
+    void setTextRange(TextRange textRange);
 }

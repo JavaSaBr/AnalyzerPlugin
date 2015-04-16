@@ -4,8 +4,9 @@ import com.instonctools.analyzer.model.standard.Standard;
 
 /**
  * Created by ronn on 09.04.15.
+ * //TODO need add documentation
  */
 public interface StandardBuilder {
 
-    public Standard build(StandardSource source);
+    Standard build(StandardSource source);
 }

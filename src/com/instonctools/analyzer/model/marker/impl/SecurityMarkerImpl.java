@@ -12,6 +12,7 @@ import com.intellij.util.xmlb.annotations.Transient;
 
 /**
  * Created by ronn on 13.04.15.
+ * //TODO need add documentation
  */
 public class SecurityMarkerImpl implements MutableSecurityMarker {
 

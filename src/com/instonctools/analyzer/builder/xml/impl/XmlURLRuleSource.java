@@ -2,24 +2,24 @@ package com.instonctools.analyzer.builder.xml.impl;
 
 import com.instonctools.analyzer.builder.xml.XmlRuleSource;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 
 /**
  * Created by ronn on 09.04.15.
+ * //TODO need add documentation
  */
-public class XmlFileRuleSource implements XmlRuleSource {
+public class XmlURLRuleSource implements XmlRuleSource {
 
-    private final File file;
+    private final URL url;
 
-    public XmlFileRuleSource(File file) {
-        this.file = file;
+    public XmlURLRuleSource(URL url) {
+        this.url = url;
     }
 
     @Override
     public InputStream getStream() throws IOException {
-        return new FileInputStream(file);
+        return url.openStream();
     }
 }

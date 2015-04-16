@@ -2,7 +2,7 @@
     <id>com.instinctools.analyzer</id>
     <name>Security Analyzer</name>
     <version>1.0</version>
-    <vendor email="support@yourcompany.com" url="http://www.instinctools.com">Instinctools</vendor>
+    <vendor url="http://www.instinctools.com">Instinctools</vendor>
 
     <description><![CDATA[
       Enter short description for your plugin here.<br>

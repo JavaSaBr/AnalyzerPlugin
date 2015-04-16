@@ -6,14 +6,15 @@ import com.intellij.openapi.vfs.VirtualFile;
 
 /**
  * Created by ronn on 13.04.15.
+ * //TODO need add documentation
  */
 public interface SecurityMarker {
 
-    public Rule getRule();
+    Rule getRule();
 
-    public TextRange getTextRange();
+    TextRange getTextRange();
 
-    public VirtualFile getFile();
+    VirtualFile getFile();
 
-    public void init();
+    void init();
 }

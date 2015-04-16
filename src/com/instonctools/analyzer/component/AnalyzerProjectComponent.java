@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * Created by ronn on 10.04.15.
+ * //TODO need add documentation
  */
 @State(name = "AnalyzerProjectComponent", storages = @Storage(id = "AnalyzerProjectComponent", file = StoragePathMacros.PROJECT_CONFIG_DIR + "/analyzer_module.xml", scheme = StorageScheme.DIRECTORY_BASED))
 public class AnalyzerProjectComponent implements ProjectComponent, PersistentStateComponent<ProjectComponentState> {

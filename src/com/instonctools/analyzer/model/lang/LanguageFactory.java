@@ -5,6 +5,7 @@ import com.intellij.openapi.util.text.StringUtil;
 
 /**
  * Created by ronn on 09.04.15.
+ * //TODO need add documentation
  */
 public class LanguageFactory {
 

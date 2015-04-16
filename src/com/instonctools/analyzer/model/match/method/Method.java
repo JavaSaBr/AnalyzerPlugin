@@ -4,8 +4,9 @@ import java.util.List;
 
 /**
  * Created by ronn on 09.04.15.
+ * //TODO need add documentation
  */
 public interface Method {
 
-    public List<String> getMethodNames();
+    List<String> getMethodNames();
 }

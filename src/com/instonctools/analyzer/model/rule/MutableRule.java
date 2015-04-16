@@ -7,22 +7,23 @@ import com.instonctools.analyzer.model.standard.Standard;
 
 /**
  * Created by ronn on 09.04.15.
+ * //TODO need add documentation
  */
 public interface MutableRule extends Rule {
 
-    public void setId(String id);
+    void setId(String id);
 
-    public void setTitle(String title);
+    void setTitle(String title);
 
-    public void setDescription(String description);
+    void setDescription(String description);
 
-    public void setLanguage(Language language);
+    void setLanguage(Language language);
 
-    public void setCategory(Category category);
+    void setCategory(Category category);
 
-    public void setMatch(Match match);
+    void setMatch(Match match);
 
-    public void addStandart(Standard standard);
+    void addStandart(Standard standard);
 
-    public void removeStandart(Standard standard);
+    void removeStandart(Standard standard);
 }

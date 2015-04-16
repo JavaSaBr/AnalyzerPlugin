@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Created by ronn on 10.04.15.
+ * //TODO need add documentation
  */
 @State(name = "AnalyzerAppComponent", storages = @Storage(id = "AnalyzerAppComponent", file = StoragePathMacros.APP_CONFIG + "/analyzer_app.xml"))
 public class AnalyzerApplicationComponent implements ApplicationComponent, PersistentStateComponent<ApplicationComponentState> {

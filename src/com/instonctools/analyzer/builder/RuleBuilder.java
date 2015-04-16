@@ -6,8 +6,9 @@ import java.util.List;
 
 /**
  * Created by ronn on 09.04.15.
+ * //TODO need add documentation
  */
 public interface RuleBuilder {
 
-    public List<Rule> build(RuleSource source);
+    List<Rule> build(RuleSource source);
 }

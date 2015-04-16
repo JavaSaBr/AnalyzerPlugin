@@ -21,6 +21,7 @@ import java.util.Map;
 
 /**
  * Created by ronn on 14.04.15.
+ * //TODO need add documentation
  */
 public class SeverityTreeNode extends AbstractTreeNode {
 

@@ -4,6 +4,7 @@ import com.instonctools.analyzer.model.lang.Language;
 
 /**
  * Created by ronn on 09.04.15.
+ * //TODO need add documentation
  */
 public abstract class AbstractLanguage implements Language {
 

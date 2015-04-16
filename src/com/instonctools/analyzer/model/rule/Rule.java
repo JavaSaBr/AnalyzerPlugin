@@ -9,20 +9,21 @@ import java.util.List;
 
 /**
  * Created by ronn on 09.04.15.
+ * //TODO need add documentation
  */
 public interface Rule {
 
-    public String getId();
+    String getId();
 
-    public String getTitle();
+    String getTitle();
 
-    public String getDescription();
+    String getDescription();
 
-    public Language getLanguage();
+    Language getLanguage();
 
-    public Category getCategory();
+    Category getCategory();
 
-    public Match getMatch();
+    Match getMatch();
 
-    public List<Standard> getStandards();
+    List<Standard> getStandards();
 }

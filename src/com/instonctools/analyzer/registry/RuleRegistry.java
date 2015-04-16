@@ -12,6 +12,7 @@ import java.util.Map;
 
 /**
  * Created by ronn on 09.04.15.
+ * //TODO need add documentation
  */
 public class RuleRegistry {
 

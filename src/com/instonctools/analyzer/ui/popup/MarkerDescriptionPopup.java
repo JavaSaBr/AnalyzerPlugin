@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Created by ronn on 15.04.15.
+ * //TODO need add documentation
  */
 public class MarkerDescriptionPopup extends JPanel {
 

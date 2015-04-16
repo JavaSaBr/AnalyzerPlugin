@@ -28,6 +28,7 @@ import java.awt.event.MouseListener;
 
 /**
  * Created by ronn on 14.04.15.
+ * //TODO need add documentation
  */
 public class ProjectMarkerPanel extends JPanel {
 

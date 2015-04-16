@@ -13,7 +13,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="TableLayout" level="project" />
     <orderEntry type="library" exported="" name="org.apache.commons.io_2.4.0" level="project" />
-    <orderEntry type="library" name="core-renderer" level="project" />
-    <orderEntry type="library" name="iText-2.0.8" level="project" />
+    <orderEntry type="library" exported="" name="core-renderer" level="project" />
+    <orderEntry type="library" exported="" name="iText-2.0.8" level="project" />
   </component>
 </module>

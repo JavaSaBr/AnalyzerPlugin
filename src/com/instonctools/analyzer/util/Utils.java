@@ -17,6 +17,7 @@ import java.awt.*;
 
 /**
  * Created by ronn on 13.04.15.
+ * //TODO need add documentation
  */
 public class Utils {
 
