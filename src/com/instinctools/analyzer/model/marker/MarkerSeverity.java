@@ -5,7 +5,8 @@ import com.instinctools.analyzer.ui.AnalyzerIcons;
 import javax.swing.*;
 
 /**
- * Created by ronn on 14.04.15. //TODO need add documentation
+ * Created by ronn on 14.04.15.
+ * Documentation follows here.
  */
 public enum MarkerSeverity {
     MEDIUM(AnalyzerIcons.ICON_16x16_COLOR_M),;

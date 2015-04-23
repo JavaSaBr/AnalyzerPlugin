@@ -5,7 +5,8 @@ import com.instinctools.analyzer.model.match.method.Method;
 import com.instinctools.analyzer.model.match.qualified.QualifiedName;
 
 /**
- * Created by ronn on 09.04.15. //TODO need add documentation
+ * Created by ronn on 09.04.15.
+ * Documentation follows here.
  */
 public class MatchImpl implements Match {
 
