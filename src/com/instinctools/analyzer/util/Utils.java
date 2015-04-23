@@ -1,7 +1,7 @@
 package com.instinctools.analyzer.util;
 
 import com.instinctools.analyzer.ui.panel.ProjectMarkerPanel;
-import com.instinctools.analyzer.visiter.PsiFileVisitor;
+import com.instinctools.analyzer.visitor.PsiFileVisitor;
 import com.intellij.analysis.AnalysisScope;
 import com.intellij.codeInsight.daemon.DaemonCodeAnalyzer;
 import com.intellij.openapi.application.Application;

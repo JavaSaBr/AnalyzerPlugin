@@ -1,4 +1,4 @@
-package com.instinctools.analyzer.visiter;
+package com.instinctools.analyzer.visitor;
 
 import com.instinctools.analyzer.finder.ProblemFinder;
 import com.instinctools.analyzer.finder.ProblemFinderFactory;
