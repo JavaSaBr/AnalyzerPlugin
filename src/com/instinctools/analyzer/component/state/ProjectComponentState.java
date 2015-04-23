@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * Created by ronn on 13.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class ProjectComponentState {
 
@@ -22,7 +22,7 @@ public class ProjectComponentState {
         return markers;
     }
 
-    public void addMarker(SecurityMarkerImpl marker) {
+    public void addMarker(final SecurityMarkerImpl marker) {
         synchronized (markers) {
             markers.add(marker);
         }
@@ -35,12 +35,14 @@ public class ProjectComponentState {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
 
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
-        ProjectComponentState that = (ProjectComponentState) o;
+        final ProjectComponentState that = (ProjectComponentState) o;
 
         return !(markers != null ? !markers.equals(that.markers) : that.markers != null);
 

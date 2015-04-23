@@ -5,11 +5,11 @@ import com.intellij.openapi.util.text.StringUtil;
 
 /**
  * Created by ronn on 09.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class LanguageFactory {
 
-    public static Language create(String name) {
+    public static Language create(final String name) {
 
         if (StringUtil.equalsIgnoreCase("java", name)) {
             return new JavaLanguage();
@@ -18,4 +18,3 @@ public class LanguageFactory {
         throw new IllegalArgumentException("unknown language name is " + name);
     }
 }
-

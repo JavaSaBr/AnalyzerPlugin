@@ -14,26 +14,28 @@ import java.util.List;
 
 /**
  * Created by ronn on 15.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class MarkerDescriptionPopup extends JPanel {
 
-    public MarkerDescriptionPopup(SecurityMarker marker) {
+    private static final long serialVersionUID = 2585048217569445023L;
+
+    public MarkerDescriptionPopup(final SecurityMarker marker) {
         super(new BorderLayout());
 
-        Rule rule = marker.getRule();
-        List<Standard> standards = rule.getStandards();
-        Standard standard = standards.get(0);
+        final Rule rule = marker.getRule();
+        final List<Standard> standards = rule.getStandards();
+        final Standard standard = standards.get(0);
 
         String htmlContent = StandartUtils.getHtmlContent(standard);
         htmlContent = htmlContent.replace("xmlns=\"http://www.w3.org/1999/xhtml\"", "");
         htmlContent = htmlContent.replace("<META http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">", "");
 
-        XHTMLPanel xhtmlPanel = new XHTMLPanel();
+        final XHTMLPanel xhtmlPanel = new XHTMLPanel();
 
         try {
             xhtmlPanel.setDocument(new ByteArrayInputStream(htmlContent.getBytes("UTF-8")), "olool");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         }
 

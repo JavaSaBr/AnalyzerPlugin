@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 
 /**
  * Created by ronn on 14.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class IconNavigatorHandler implements GutterIconNavigationHandler<PsiElement> {
 

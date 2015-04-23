@@ -6,13 +6,13 @@ import java.util.List;
 
 /**
  * Created by ronn on 09.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class MethodImpl implements Method {
 
     private final List<String> methodNames;
 
-    public MethodImpl(List<String> methodNames) {
+    public MethodImpl(final List<String> methodNames) {
         this.methodNames = methodNames;
     }
 
@@ -23,8 +23,6 @@ public class MethodImpl implements Method {
 
     @Override
     public String toString() {
-        return "MethodImpl{" +
-                "methodNames=" + methodNames +
-                '}';
+        return "MethodImpl{" + "methodNames=" + methodNames + '}';
     }
 }

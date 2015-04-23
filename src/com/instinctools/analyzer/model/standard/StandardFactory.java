@@ -4,7 +4,7 @@ import com.instinctools.analyzer.model.standard.impl.StandardImpl;
 
 /**
  * Created by ronn on 09.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class StandardFactory {
 

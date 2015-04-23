@@ -8,13 +8,13 @@ import javax.swing.*;
 
 /**
  * Created by ronn on 14.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class ProjectMarkerPanelFactory implements ToolWindowFactory {
 
     @Override
-    public void createToolWindowContent(Project project, ToolWindow toolWindow) {
-        JComponent component = toolWindow.getComponent();
+    public void createToolWindowContent(final Project project, final ToolWindow toolWindow) {
+        final JComponent component = toolWindow.getComponent();
         component.add(new ProjectMarkerPanel(toolWindow, project));
     }
 }

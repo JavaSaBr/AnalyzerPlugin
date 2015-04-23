@@ -6,7 +6,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 
 /**
  * Created by ronn on 13.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public interface SecurityMarker {
 

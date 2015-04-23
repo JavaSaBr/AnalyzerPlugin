@@ -13,11 +13,16 @@ import java.awt.*;
 
 /**
  * Created by ronn on 14.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer {
 
-    private static final Stroke STROKE = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{1, 1}, 0);
+    private static final long serialVersionUID = -4480197976519419304L;
+
+    private static final Stroke STROKE = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{
+            1,
+            1
+    }, 0);
 
     private static final int H_GAP = 4;
 
@@ -56,8 +61,24 @@ public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer {
         final double border = 0;
         final double rowsGap = 0;
         final double colsGap = H_GAP;
-        final double[][] size = {{border, TableLayoutConstants.PREFERRED, colsGap, TableLayoutConstants.PREFERRED, colsGap, TableLayoutConstants.PREFERRED, colsGap, TableLayoutConstants.PREFERRED, border}, // Columns
-                {border, TableLayoutConstants.PREFERRED, border}};// Rows
+        final double[][] size = {
+                {
+                        border,
+                        TableLayoutConstants.PREFERRED,
+                        colsGap,
+                        TableLayoutConstants.PREFERRED,
+                        colsGap,
+                        TableLayoutConstants.PREFERRED,
+                        colsGap,
+                        TableLayoutConstants.PREFERRED,
+                        border
+                }, // Columns
+                {
+                        border,
+                        TableLayoutConstants.PREFERRED,
+                        border
+                }
+        };// Rows
         final LayoutManager tbl = new TableLayout(size);
         setLayout(tbl);
 
@@ -128,6 +149,7 @@ public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer {
         borderSelectionColor = newColor;
     }
 
+    @Override
     public Component getTreeCellRendererComponent(final JTree tree, final Object value, final boolean selected, final boolean expanded, final boolean leaf, final int row, final boolean hasFocus) {
 
         if (title.getFont().getStyle() == Font.BOLD) {
@@ -163,7 +185,7 @@ public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer {
 
             if (value instanceof AbstractTreeNode) {
 
-                AbstractTreeNode node = (AbstractTreeNode) value;
+                final AbstractTreeNode node = (AbstractTreeNode) value;
 
                 if (expanded) {
                     final MaskIcon expandedIcon = (MaskIcon) node.getExpandedIcon();
@@ -200,7 +222,6 @@ public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer {
 
         return this;
     }
-
 
     @Override
     public void paint(final Graphics g) {
@@ -247,7 +268,6 @@ public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer {
         paintChildren(g);
     }
 
-
     private void updateBounds() {
 
         final Dimension size = icon.getPreferredSize();
@@ -255,7 +275,7 @@ public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer {
         size.width += hits.getPreferredSize().width;
 
         if (!link.getText().isEmpty()) {
-            size.width += 50; //link
+            size.width += 50; // link
         }
 
         size.width += H_GAP; // BorderLayout H_GAP
@@ -269,26 +289,21 @@ public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer {
         }
     }
 
-
     private int getIconLabelStart() {
         return icon.getWidth() + H_GAP - 2; // icon.getX();
     }
-
 
     private void setIcon(final Icon icon) {
         this.icon.setIcon(icon);
     }
 
-
     private void setTitle(final String description) {
         title.setText(description);
     }
 
-
     private void setHits(final String stats) {
         hits.setText(stats);
     }
-
 
     private void setLinkHtml(final String html) {
         link.setText(html);
@@ -296,15 +311,17 @@ public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer {
 
     private static class ValueLabel extends JLabel {
 
+        /**
+         *
+         */
+        private static final long serialVersionUID = 8568080234199338166L;
         private Graphics2D _g2D;
-
 
         @Override
         public void addNotify() {
             super.addNotify();
             _g2D = (Graphics2D) getGraphics().create();
         }
-
 
         @Override
         public Dimension getPreferredSize() {

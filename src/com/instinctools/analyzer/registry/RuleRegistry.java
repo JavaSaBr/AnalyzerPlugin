@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * Created by ronn on 09.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class RuleRegistry {
 
@@ -31,7 +31,7 @@ public class RuleRegistry {
         return new ArrayList<Rule>(rules.values());
     }
 
-    private void addRule(Rule rule) {
+    private void addRule(final Rule rule) {
 
         if (rules.containsKey(rule.getId())) {
             throw new IllegalArgumentException("found duplicate rule for id " + rule.getId());
@@ -40,11 +40,11 @@ public class RuleRegistry {
         rules.put(rule.getId(), rule);
     }
 
-    public void register(RuleSource ruleSource) {
+    public void register(final RuleSource ruleSource) {
 
-        RuleBuilder builder = BuilderFactory.getRuleBuilderFor(ruleSource);
+        final RuleBuilder builder = BuilderFactory.getRuleBuilderFor(ruleSource);
 
-        for (Rule rule : builder.build(ruleSource)) {
+        for (final Rule rule : builder.build(ruleSource)) {
             addRule(rule);
         }
     }

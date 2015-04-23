@@ -4,7 +4,7 @@ import com.instinctools.analyzer.model.marker.impl.SecurityMarkerImpl;
 
 /**
  * Created by ronn on 13.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class SecurityMarkerFactory {
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * Created by ronn on 09.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class RuleImpl implements MutableRule {
 
@@ -39,7 +39,7 @@ public class RuleImpl implements MutableRule {
     }
 
     @Override
-    public void setCategory(Category category) {
+    public void setCategory(final Category category) {
         this.category = category;
     }
 
@@ -49,7 +49,7 @@ public class RuleImpl implements MutableRule {
     }
 
     @Override
-    public void setLanguage(Language language) {
+    public void setLanguage(final Language language) {
         this.language = language;
     }
 
@@ -64,7 +64,7 @@ public class RuleImpl implements MutableRule {
     }
 
     @Override
-    public void setMatch(Match match) {
+    public void setMatch(final Match match) {
         this.match = match;
     }
 
@@ -74,7 +74,7 @@ public class RuleImpl implements MutableRule {
     }
 
     @Override
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -84,7 +84,7 @@ public class RuleImpl implements MutableRule {
     }
 
     @Override
-    public void setId(String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -94,30 +94,23 @@ public class RuleImpl implements MutableRule {
     }
 
     @Override
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
     @Override
-    public void addStandart(Standard standard) {
+    public void addStandart(final Standard standard) {
         this.standards.add(standard);
     }
 
     @Override
-    public void removeStandart(Standard standard) {
+    public void removeStandart(final Standard standard) {
         this.standards.remove(standard);
     }
 
     @Override
     public String toString() {
-        return "RuleImpl{" +
-                "standards=" + standards +
-                ", id='" + id + '\'' +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", language=" + language +
-                ", category=" + category +
-                ", match=" + match +
-                '}';
+        return "RuleImpl{" + "standards=" + standards + ", id='" + id + '\'' + ", title='" + title + '\'' + ", description='" + description + '\'' + ", language=" + language + ", category="
+                + category + ", match=" + match + '}';
     }
 }

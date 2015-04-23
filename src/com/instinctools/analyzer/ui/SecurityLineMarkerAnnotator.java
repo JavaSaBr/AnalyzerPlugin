@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * Created by ronn on 14.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class SecurityLineMarkerAnnotator implements Annotator {
 
@@ -23,26 +23,26 @@ public class SecurityLineMarkerAnnotator implements Annotator {
     }
 
     @Override
-    public void annotate(PsiElement element, AnnotationHolder annotationHolder) {
+    public void annotate(final PsiElement element, final AnnotationHolder annotationHolder) {
 
         if (!(element instanceof PsiMethodCallExpression)) {
             return;
         }
 
-        MarkerService markerService = ServiceManager.getService(MarkerService.class);
-        SecurityMarker marker = markerService.findMarkerFor(element);
+        final MarkerService markerService = ServiceManager.getService(MarkerService.class);
+        final SecurityMarker marker = markerService.findMarkerFor(element);
 
         if (marker == null) {
             return;
         }
 
-        Rule rule = marker.getRule();
+        final Rule rule = marker.getRule();
 
-        List<Standard> standards = rule.getStandards();
+        final List<Standard> standards = rule.getStandards();
 
         final StringBuilder buffer = new StringBuilder();
 
-        for (Standard standard : standards) {
+        for (final Standard standard : standards) {
             buffer.append(standard.getShortDescription());
         }
 

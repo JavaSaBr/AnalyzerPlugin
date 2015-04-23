@@ -16,15 +16,15 @@ import java.util.List;
 
 /**
  * Created by ronn on 10.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 @State(name = "AnalyzerProjectComponent", storages = @Storage(id = "AnalyzerProjectComponent", file = StoragePathMacros.PROJECT_CONFIG_DIR + "/analyzer_module.xml", scheme = StorageScheme.DIRECTORY_BASED))
 public class AnalyzerProjectComponent implements ProjectComponent, PersistentStateComponent<ProjectComponentState> {
 
+    private final Project project;
     private ProjectComponentState componentState;
-    private Project project;
 
-    public AnalyzerProjectComponent(Project project) {
+    public AnalyzerProjectComponent(final Project project) {
         this.project = project;
         this.componentState = new ProjectComponentState();
     }
@@ -35,7 +35,7 @@ public class AnalyzerProjectComponent implements ProjectComponent, PersistentSta
 
     public void initComponent() {
 
-        PsiManager psiManager = PsiManager.getInstance(project);
+        final PsiManager psiManager = PsiManager.getInstance(project);
         psiManager.addPsiTreeChangeListener(new AnalyzerPsiTreeChangeListener(this));
     }
 
@@ -48,29 +48,29 @@ public class AnalyzerProjectComponent implements ProjectComponent, PersistentSta
         return "AnalyzerProjectComponent";
     }
 
-    public void addMarker(SecurityMarker marker) {
+    public void addMarker(final SecurityMarker marker) {
         componentState.addMarker((SecurityMarkerImpl) marker);
     }
 
-    public void removeMarker(SecurityMarker marker) {
+    public void removeMarker(final SecurityMarker marker) {
 
-        List<SecurityMarkerImpl> markers = componentState.getMarkers();
+        final List<SecurityMarkerImpl> markers = componentState.getMarkers();
 
         synchronized (markers) {
             markers.remove(marker);
         }
     }
 
-    public boolean hasMarkersFor(PsiFile file) {
+    public boolean hasMarkersFor(final PsiFile file) {
 
-        VirtualFile virtualFile = file.getVirtualFile();
-        List<SecurityMarker> markers = getMarkers();
+        final VirtualFile virtualFile = file.getVirtualFile();
+        final List<SecurityMarker> markers = getMarkers();
 
         if (markers.isEmpty()) {
             return false;
         }
 
-        for (SecurityMarker marker : markers) {
+        for (final SecurityMarker marker : markers) {
             if (virtualFile.equals(marker.getFile())) {
                 return true;
             }
@@ -86,9 +86,9 @@ public class AnalyzerProjectComponent implements ProjectComponent, PersistentSta
     }
 
     @Override
-    public void loadState(ProjectComponentState componentState) {
+    public void loadState(final ProjectComponentState componentState) {
 
-        for (SecurityMarker marker : componentState.getMarkers()) {
+        for (final SecurityMarker marker : componentState.getMarkers()) {
             marker.init();
         }
 
@@ -97,11 +97,11 @@ public class AnalyzerProjectComponent implements ProjectComponent, PersistentSta
 
     public List<SecurityMarker> getMarkers() {
 
-        List<SecurityMarker> result = new ArrayList<SecurityMarker>();
-        List<SecurityMarkerImpl> markers = componentState.getMarkers();
+        final List<SecurityMarker> result = new ArrayList<SecurityMarker>();
+        final List<SecurityMarkerImpl> markers = componentState.getMarkers();
 
         synchronized (markers) {
-            for (SecurityMarker marker : markers) {
+            for (final SecurityMarker marker : markers) {
                 result.add(marker);
             }
         }

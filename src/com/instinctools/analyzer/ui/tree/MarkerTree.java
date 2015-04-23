@@ -7,13 +7,15 @@ import javax.swing.*;
 
 /**
  * Created by ronn on 14.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class MarkerTree extends JTree {
 
-    private Project project;
+    private static final long serialVersionUID = -3592103319585562264L;
 
-    public MarkerTree(Project project) {
+    private final Project project;
+
+    public MarkerTree(final Project project) {
         super(new MarkerTreeModel(project));
 
         setCellRenderer(new TreeNodeCellRenderer());

@@ -4,13 +4,13 @@ import com.instinctools.analyzer.model.lang.Language;
 
 /**
  * Created by ronn on 09.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public abstract class AbstractLanguage implements Language {
 
     private final String name;
 
-    public AbstractLanguage(String name) {
+    public AbstractLanguage(final String name) {
         this.name = name;
     }
 
@@ -21,18 +21,18 @@ public abstract class AbstractLanguage implements Language {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "name='" + name + '\'' +
-                '}';
+        return getClass().getSimpleName() + "{" + "name='" + name + '\'' + '}';
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
 
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
-        AbstractLanguage that = (AbstractLanguage) o;
+        final AbstractLanguage that = (AbstractLanguage) o;
 
         return !(name != null ? !name.equals(that.name) : that.name != null);
     }

@@ -8,11 +8,12 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.util.xmlb.annotations.Property;
-import com.intellij.util.xmlb.annotations.Transient;
+
+import java.beans.Transient;
 
 /**
  * Created by ronn on 13.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class SecurityMarkerImpl implements MutableSecurityMarker {
 
@@ -41,7 +42,7 @@ public class SecurityMarkerImpl implements MutableSecurityMarker {
     }
 
     @Override
-    public void setTextRange(TextRange textRange) {
+    public void setTextRange(final TextRange textRange) {
         this.textRange = textRange;
         this.startOffset = textRange.getStartOffset();
         this.endOffset = textRange.getEndOffset();
@@ -53,7 +54,8 @@ public class SecurityMarkerImpl implements MutableSecurityMarker {
         return rule;
     }
 
-    public void setRule(Rule rule) {
+    @Override
+    public void setRule(final Rule rule) {
         this.rule = rule;
         this.ruleId = rule.getId();
     }
@@ -64,7 +66,7 @@ public class SecurityMarkerImpl implements MutableSecurityMarker {
         return file;
     }
 
-    public void setFile(VirtualFile file) {
+    public void setFile(final VirtualFile file) {
         this.file = file;
         this.filePath = file.getUrl();
     }
@@ -72,8 +74,8 @@ public class SecurityMarkerImpl implements MutableSecurityMarker {
     @Override
     public void init() {
 
-        VirtualFileManager fileManager = VirtualFileManager.getInstance();
-        RuleService ruleService = ServiceManager.getService(RuleService.class);
+        final VirtualFileManager fileManager = VirtualFileManager.getInstance();
+        final RuleService ruleService = ServiceManager.getService(RuleService.class);
 
         this.rule = ruleService.getRule(ruleId);
         this.file = fileManager.findFileByUrl(filePath);
@@ -82,14 +84,7 @@ public class SecurityMarkerImpl implements MutableSecurityMarker {
 
     @Override
     public String toString() {
-        return "SecurityMarkerImpl{" +
-                "ruleId='" + ruleId + '\'' +
-                ", filePath='" + filePath + '\'' +
-                ", startOffset=" + startOffset +
-                ", endOffset=" + endOffset +
-                ", rule=" + rule +
-                ", file=" + file +
-                ", textRange=" + textRange +
-                '}';
+        return "SecurityMarkerImpl{" + "ruleId='" + ruleId + '\'' + ", filePath='" + filePath + '\'' + ", startOffset=" + startOffset + ", endOffset=" + endOffset + ", rule=" + rule + ", file="
+                + file + ", textRange=" + textRange + '}';
     }
 }

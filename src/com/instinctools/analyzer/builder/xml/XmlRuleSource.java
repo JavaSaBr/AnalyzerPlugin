@@ -7,7 +7,7 @@ import java.io.InputStream;
 
 /**
  * Created by ronn on 09.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public interface XmlRuleSource extends RuleSource {
 

@@ -21,15 +21,15 @@ import java.util.Map;
 
 /**
  * Created by ronn on 14.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class SeverityTreeNode extends AbstractTreeNode {
 
-    private MaskIcon icon;
+    private final MaskIcon icon;
 
-    private Project project;
+    private final Project project;
 
-    public SeverityTreeNode(Project project, MarkerSeverity severity, AbstractTreeNode parent) {
+    public SeverityTreeNode(final Project project, final MarkerSeverity severity, final AbstractTreeNode parent) {
         super(severity, parent);
         this.project = project;
         this.icon = new MaskIcon(severity.getIcon(), JBColor.BLACK);
@@ -38,22 +38,22 @@ public class SeverityTreeNode extends AbstractTreeNode {
     @Override
     public void loadChilds() {
 
-        AnalyzerProjectComponent analyzerProjectComponent = project.getComponent(AnalyzerProjectComponent.class);
-        List<SecurityMarker> markers = analyzerProjectComponent.getMarkers();
+        final AnalyzerProjectComponent analyzerProjectComponent = project.getComponent(AnalyzerProjectComponent.class);
+        final List<SecurityMarker> markers = analyzerProjectComponent.getMarkers();
 
-        Map<PsiDirectory, List<SecurityMarker>> roots = new HashMap<PsiDirectory, List<SecurityMarker>>();
+        final Map<PsiDirectory, List<SecurityMarker>> roots = new HashMap<PsiDirectory, List<SecurityMarker>>();
 
-        PsiManager psiManager = PsiManager.getInstance(project);
+        final PsiManager psiManager = PsiManager.getInstance(project);
 
-        for (SecurityMarker marker : markers) {
+        for (final SecurityMarker marker : markers) {
 
-            PsiFile psiFile = psiManager.findFile(marker.getFile());
+            final PsiFile psiFile = psiManager.findFile(marker.getFile());
 
             if (psiFile == null) {
                 continue;
             }
 
-            Module module = ModuleUtil.findModuleForFile(marker.getFile(), project);
+            final Module module = ModuleUtil.findModuleForFile(marker.getFile(), project);
             VirtualFile baseDir = project.getBaseDir();
 
             if (baseDir == null) {
@@ -62,7 +62,7 @@ public class SeverityTreeNode extends AbstractTreeNode {
 
             if (module != null) {
 
-                VirtualFile moduleFile = module.getModuleFile();
+                final VirtualFile moduleFile = module.getModuleFile();
 
                 if (moduleFile != null && moduleFile.getParent() != null) {
                     baseDir = moduleFile.getParent();
@@ -94,13 +94,13 @@ public class SeverityTreeNode extends AbstractTreeNode {
             rootMarkers.add(marker);
         }
 
-        List<AbstractTreeNode> children = getChildren();
+        final List<AbstractTreeNode> children = getChildren();
 
-        for (Map.Entry<PsiDirectory, List<SecurityMarker>> entry : roots.entrySet()) {
+        for (final Map.Entry<PsiDirectory, List<SecurityMarker>> entry : roots.entrySet()) {
 
-            PsiDirectory root = entry.getKey();
+            final PsiDirectory root = entry.getKey();
 
-            PsiDirectoryTreeNode child = new PsiDirectoryTreeNode(project, root, entry.getValue(), this);
+            final PsiDirectoryTreeNode child = new PsiDirectoryTreeNode(project, root, entry.getValue(), this);
             child.loadChilds();
 
             children.add(child);

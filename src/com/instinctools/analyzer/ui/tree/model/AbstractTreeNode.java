@@ -9,17 +9,17 @@ import java.util.List;
 
 /**
  * Created by ronn on 14.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class AbstractTreeNode implements TreeNode {
 
-    private List<AbstractTreeNode> children;
+    private final List<AbstractTreeNode> children;
 
-    private AbstractTreeNode parent;
+    private final AbstractTreeNode parent;
 
-    private Object value;
+    private final Object value;
 
-    public AbstractTreeNode(Object value, AbstractTreeNode parent) {
+    public AbstractTreeNode(final Object value, final AbstractTreeNode parent) {
         this.children = new ArrayList<AbstractTreeNode>();
         this.value = value;
         this.parent = parent;
@@ -38,7 +38,7 @@ public class AbstractTreeNode implements TreeNode {
     }
 
     @Override
-    public TreeNode getChildAt(int childIndex) {
+    public TreeNode getChildAt(final int childIndex) {
         return children == null ? null : children.get(childIndex);
     }
 
@@ -53,7 +53,7 @@ public class AbstractTreeNode implements TreeNode {
     }
 
     @Override
-    public int getIndex(TreeNode node) {
+    public int getIndex(final TreeNode node) {
         return children == null ? 0 : children.indexOf(node);
     }
 

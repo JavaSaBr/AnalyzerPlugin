@@ -13,11 +13,11 @@ import java.util.Map;
 
 /**
  * Created by ronn on 15.04.15.
+ * Documentation follows here.
  */
 public class StandardServiceImpl implements StandardService {
 
-    private static final String[] STANDARD_PATHS = {
-            "/standards/about-sql-injection.xml"
+    private static final String[] STANDARD_PATHS = {"/standards/about-sql-injection.xml"
     };
 
     private final Map<String, Standard> fileToStandard;
@@ -29,9 +29,9 @@ public class StandardServiceImpl implements StandardService {
 
     private void init() {
 
-        for (String standartPath : STANDARD_PATHS) {
+        for (final String standartPath : STANDARD_PATHS) {
 
-            URL resource = getClass().getResource(standartPath);
+            final URL resource = getClass().getResource(standartPath);
 
             if (resource == null) {
                 continue;
@@ -39,13 +39,12 @@ public class StandardServiceImpl implements StandardService {
 
             try {
 
-                XmlURLStandardSource source = new XmlURLStandardSource(resource);
+                final XmlURLStandardSource source = new XmlURLStandardSource(resource);
 
-                StandardBuilder builder = BuilderFactory.getStandardBuilderFor(source);
-                Standard standard = builder.build(source);
+                final StandardBuilder builder = BuilderFactory.getStandardBuilderFor(source);
+                final Standard standard = builder.build(source);
 
-
-                String path = URLDecoder.decode(resource.getPath(), "UTF-8");
+                final String path = URLDecoder.decode(resource.getPath(), "UTF-8");
 
                 System.out.println("path " + path);
 
@@ -56,14 +55,14 @@ public class StandardServiceImpl implements StandardService {
                     fileToStandard.put(path.substring(path.lastIndexOf('/') + 1, path.length()), standard);
                 }
 
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
     @Override
-    public Standard getStandardForFile(String filePath) {
+    public Standard getStandardForFile(final String filePath) {
         return fileToStandard.get(filePath);
     }
 }

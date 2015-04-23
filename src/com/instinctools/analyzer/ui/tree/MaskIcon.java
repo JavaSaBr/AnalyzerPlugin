@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 /**
  * Created by ronn on 14.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class MaskIcon implements Icon {
 
@@ -48,6 +48,7 @@ public class MaskIcon implements Icon {
         this.colorPainted = colorPainted;
     }
 
+    @Override
     public void paintIcon(final Component component, final Graphics graphics, final int x, final int y) {
         delegate.paintIcon(component, graphics, x, y);
 
@@ -56,12 +57,13 @@ public class MaskIcon implements Icon {
         }
     }
 
+    @Override
     public int getIconWidth() {
         return delegate.getIconWidth();
     }
 
+    @Override
     public int getIconHeight() {
         return delegate.getIconHeight();
     }
 }
-

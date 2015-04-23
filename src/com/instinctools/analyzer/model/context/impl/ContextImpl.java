@@ -4,13 +4,13 @@ import com.instinctools.analyzer.model.context.Context;
 
 /**
  * Created by ronn on 09.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class ContextImpl implements Context {
 
-    private String name;
+    private final String name;
 
-    public ContextImpl(String name) {
+    public ContextImpl(final String name) {
         this.name = name;
     }
 
@@ -19,11 +19,8 @@ public class ContextImpl implements Context {
         return name;
     }
 
-
     @Override
     public String toString() {
-        return "ContextImpl{" +
-                "name='" + name + '\'' +
-                '}';
+        return "ContextImpl{" + "name='" + name + '\'' + '}';
     }
 }

@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Created by ronn on 10.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 @State(name = "AnalyzerAppComponent", storages = @Storage(id = "AnalyzerAppComponent", file = StoragePathMacros.APP_CONFIG + "/analyzer_app.xml"))
 public class AnalyzerApplicationComponent implements ApplicationComponent, PersistentStateComponent<ApplicationComponentState> {
@@ -61,7 +61,7 @@ public class AnalyzerApplicationComponent implements ApplicationComponent, Persi
     }
 
     @Override
-    public void loadState(ApplicationComponentState componentState) {
+    public void loadState(final ApplicationComponentState componentState) {
         this.componentState = componentState;
     }
 }

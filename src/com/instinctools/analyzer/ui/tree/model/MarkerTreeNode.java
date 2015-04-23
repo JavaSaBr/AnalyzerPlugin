@@ -13,18 +13,18 @@ import javax.swing.*;
 
 /**
  * Created by ronn on 14.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class MarkerTreeNode extends AbstractTreeNode {
 
     private static final Icon EXPAND_ICON = new MaskIcon(AnalyzerIcons.ICON_16x16_COLOR_M, JBColor.BLACK);
     private static final Icon COLLAPSE_ICON = EXPAND_ICON;
 
-    private Project project;
+    private final Project project;
 
     private int line;
 
-    public MarkerTreeNode(SecurityMarker marker, Project project, AbstractTreeNode parent) {
+    public MarkerTreeNode(final SecurityMarker marker, final Project project, final AbstractTreeNode parent) {
         super(marker, parent);
 
         this.project = project;
@@ -33,11 +33,11 @@ public class MarkerTreeNode extends AbstractTreeNode {
     @Override
     public void loadChilds() {
 
-        SecurityMarker marker = (SecurityMarker) getValue();
-        TextRange textRange = marker.getTextRange();
+        final SecurityMarker marker = (SecurityMarker) getValue();
+        final TextRange textRange = marker.getTextRange();
 
-        FileDocumentManager documentManager = FileDocumentManager.getInstance();
-        Document document = documentManager.getDocument(marker.getFile());
+        final FileDocumentManager documentManager = FileDocumentManager.getInstance();
+        final Document document = documentManager.getDocument(marker.getFile());
 
         if (document == null) {
             return;

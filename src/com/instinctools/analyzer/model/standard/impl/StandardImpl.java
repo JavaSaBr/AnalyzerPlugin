@@ -4,7 +4,7 @@ import com.instinctools.analyzer.model.standard.MutableStandard;
 
 /**
  * Created by ronn on 09.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class StandardImpl implements MutableStandard {
 
@@ -23,7 +23,7 @@ public class StandardImpl implements MutableStandard {
     }
 
     @Override
-    public void setContent(String content) {
+    public void setContent(final String content) {
         this.content = content;
     }
 
@@ -33,7 +33,7 @@ public class StandardImpl implements MutableStandard {
     }
 
     @Override
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -43,7 +43,7 @@ public class StandardImpl implements MutableStandard {
     }
 
     @Override
-    public void setLongDescription(String longDescription) {
+    public void setLongDescription(final String longDescription) {
         this.longDescription = longDescription;
     }
 
@@ -53,7 +53,7 @@ public class StandardImpl implements MutableStandard {
     }
 
     @Override
-    public void setShortDescription(String shortDescription) {
+    public void setShortDescription(final String shortDescription) {
         this.shortDescription = shortDescription;
     }
 }

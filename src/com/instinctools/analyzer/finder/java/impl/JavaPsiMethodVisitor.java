@@ -17,25 +17,25 @@ import java.util.List;
 
 /**
  * Created by ronn on 10.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class JavaPsiMethodVisitor extends JavaElementVisitor {
 
-    private List<Rule> rules;
+    private final List<Rule> rules;
 
-    private PsiJavaFile javaFile;
+    private final PsiJavaFile javaFile;
 
-    private Module module;
+    private final Module module;
 
-    public JavaPsiMethodVisitor(List<Rule> rules, PsiJavaFile javaFile) {
+    public JavaPsiMethodVisitor(final List<Rule> rules, final PsiJavaFile javaFile) {
         this.javaFile = javaFile;
         this.rules = rules;
 
-        Project project = javaFile.getProject();
-        VirtualFile virtualFile = javaFile.getVirtualFile();
+        final Project project = javaFile.getProject();
+        final VirtualFile virtualFile = javaFile.getVirtualFile();
 
-        ProjectRootManager projectRootManager = ProjectRootManager.getInstance(project);
-        ProjectFileIndex fileIndex = projectRootManager.getFileIndex();
+        final ProjectRootManager projectRootManager = ProjectRootManager.getInstance(project);
+        final ProjectFileIndex fileIndex = projectRootManager.getFileIndex();
         this.module = fileIndex.getModuleForFile(virtualFile);
     }
 
@@ -44,41 +44,41 @@ public class JavaPsiMethodVisitor extends JavaElementVisitor {
     }
 
     @Override
-    public void visitElement(PsiElement element) {
+    public void visitElement(final PsiElement element) {
         super.visitElement(element);
 
-        for (PsiElement child : element.getChildren()) {
+        for (final PsiElement child : element.getChildren()) {
             child.accept(this);
         }
     }
 
     @Override
-    public void visitMethodCallExpression(PsiMethodCallExpression expression) {
+    public void visitMethodCallExpression(final PsiMethodCallExpression expression) {
         super.visitMethodCallExpression(expression);
 
-        PsiReferenceExpression methodExpression = expression.getMethodExpression();
+        final PsiReferenceExpression methodExpression = expression.getMethodExpression();
 
         if (methodExpression == null) {
             return;
         }
 
-        PsiReference reference = methodExpression.getReference();
+        final PsiReference reference = methodExpression.getReference();
 
         if (reference == null) {
             return;
         }
 
-        PsiElement result = reference.resolve();
+        final PsiElement result = reference.resolve();
 
         if (result == null) {
             return;
         }
 
-        PsiElement methodClass = result.getContext();
+        final PsiElement methodClass = result.getContext();
         String methodClassName = null;
 
         if (methodClass instanceof PsiClass) {
-            PsiClass invokeClass = (PsiClass) methodClass;
+            final PsiClass invokeClass = (PsiClass) methodClass;
             methodClassName = invokeClass.getQualifiedName();
         }
 
@@ -86,29 +86,29 @@ public class JavaPsiMethodVisitor extends JavaElementVisitor {
             return;
         }
 
-        PsiIdentifier methodIndentifier = (PsiIdentifier) methodExpression.getLastChild();
-        String methodName = methodIndentifier.getText();
+        final PsiIdentifier methodIndentifier = (PsiIdentifier) methodExpression.getLastChild();
+        final String methodName = methodIndentifier.getText();
 
-        List<Rule> rules = getRules();
+        final List<Rule> rules = getRules();
 
-        for (Rule rule : rules) {
+        for (final Rule rule : rules) {
 
-            Match match = rule.getMatch();
-            QualifiedName qualifiedName = match.getQualifiedName();
-            List<String> classNames = qualifiedName.getClassNames();
+            final Match match = rule.getMatch();
+            final QualifiedName qualifiedName = match.getQualifiedName();
+            final List<String> classNames = qualifiedName.getClassNames();
 
             if (!classNames.contains(methodClassName)) {
                 continue;
             }
 
-            Method method = match.getMethod();
-            List<String> methodNames = method.getMethodNames();
+            final Method method = match.getMethod();
+            final List<String> methodNames = method.getMethodNames();
 
             if (!methodNames.contains(methodName)) {
                 continue;
             }
 
-            MarkerService markerService = ServiceManager.getService(MarkerService.class);
+            final MarkerService markerService = ServiceManager.getService(MarkerService.class);
             markerService.buildMarker(rule, expression);
         }
     }

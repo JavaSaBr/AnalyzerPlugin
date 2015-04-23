@@ -1,7 +1,5 @@
 package com.instinctools.analyzer.model.standard;
 
-import com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;
-
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -13,25 +11,25 @@ import java.io.StringWriter;
 
 /**
  * Created by ronn on 16.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class StandartUtils {
 
-    public static String getHtmlContent(Standard standard) {
+    public static String getHtmlContent(final Standard standard) {
 
-        InputStream resource = StandartUtils.class.getResourceAsStream("/transform/standard_stylesheet.xsl");
+        final InputStream resource = StandartUtils.class.getResourceAsStream("/transform/standard_stylesheet.xsl");
 
-        StringWriter writer = new StringWriter();
+        final StringWriter writer = new StringWriter();
 
         try {
 
-            TransformerFactory transformerFactory = TransformerFactoryImpl.newInstance();
-            Transformer transformer = transformerFactory.newTransformer(new StreamSource(resource));
+            final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            final Transformer transformer = transformerFactory.newTransformer(new StreamSource(resource));
 
-            StreamResult result = new StreamResult(writer);
+            final StreamResult result = new StreamResult(writer);
             transformer.transform(new StreamSource(new StringReader(standard.getContent())), result);
 
-        } catch (TransformerException e) {
+        } catch (final TransformerException e) {
             e.printStackTrace();
         }
 

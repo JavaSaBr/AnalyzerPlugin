@@ -16,36 +16,36 @@ import java.util.List;
 
 /**
  * Created by ronn on 10.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class JavaFileProblemFinder implements ProblemFinder {
 
     @Override
-    public void find(PsiFile psiFile) {
+    public void find(final PsiFile psiFile) {
 
-        PsiJavaFile javaFile = (PsiJavaFile) psiFile;
+        final PsiJavaFile javaFile = (PsiJavaFile) psiFile;
 
-        MarkerService markerService = ServiceManager.getService(MarkerService.class);
+        final MarkerService markerService = ServiceManager.getService(MarkerService.class);
         markerService.clearMarkersFor(psiFile.getProject(), javaFile.getVirtualFile());
 
-        Language language = javaFile.getLanguage();
+        final Language language = javaFile.getLanguage();
 
-        RuleService ruleService = ServiceManager.getService(RuleService.class);
-        List<Rule> rules = ruleService.getRulesFor(LanguageFactory.create(language.getDisplayName()));
+        final RuleService ruleService = ServiceManager.getService(RuleService.class);
+        final List<Rule> rules = ruleService.getRulesFor(LanguageFactory.create(language.getDisplayName()));
 
         if (rules.isEmpty()) {
             return;
         }
 
-        JavaPsiMethodVisitor methodVisiter = new JavaPsiMethodVisitor(rules, javaFile);
+        final JavaPsiMethodVisitor methodVisiter = new JavaPsiMethodVisitor(rules, javaFile);
 
-        PsiClass[] classes = javaFile.getClasses();
+        final PsiClass[] classes = javaFile.getClasses();
 
-        for (PsiClass javaClass : classes) {
+        for (final PsiClass javaClass : classes) {
 
-            PsiMethod[] methods = javaClass.getMethods();
+            final PsiMethod[] methods = javaClass.getMethods();
 
-            for (PsiMethod psiMethod : methods) {
+            for (final PsiMethod psiMethod : methods) {
                 psiMethod.accept(methodVisiter);
             }
         }

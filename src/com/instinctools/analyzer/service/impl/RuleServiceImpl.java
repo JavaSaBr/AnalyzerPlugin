@@ -12,11 +12,11 @@ import java.util.*;
 
 /**
  * Created by ronn on 10.04.15.
+ * Documentation follows here.
  */
 public class RuleServiceImpl implements RuleService {
 
-    private static final String[] RULE_PATHS = {
-            "/rules/sql-injection.xml"
+    private static final String[] RULE_PATHS = {"/rules/sql-injection.xml"
     };
 
     private final Map<Language, List<Rule>> languageRules;
@@ -34,9 +34,9 @@ public class RuleServiceImpl implements RuleService {
 
     private void init() {
 
-        for (String rulePath : RULE_PATHS) {
+        for (final String rulePath : RULE_PATHS) {
 
-            URL resource = getClass().getResource(rulePath);
+            final URL resource = getClass().getResource(rulePath);
 
             if (resource == null) {
                 continue;
@@ -44,14 +44,14 @@ public class RuleServiceImpl implements RuleService {
 
             try {
 
-                XmlURLRuleSource ruleSource = new XmlURLRuleSource(resource);
+                final XmlURLRuleSource ruleSource = new XmlURLRuleSource(resource);
 
-                RuleBuilder builder = BuilderFactory.getRuleBuilderFor(ruleSource);
-                List<Rule> rules = builder.build(ruleSource);
+                final RuleBuilder builder = BuilderFactory.getRuleBuilderFor(ruleSource);
+                final List<Rule> rules = builder.build(ruleSource);
 
                 allRules.addAll(rules);
 
-                for (Rule rule : rules) {
+                for (final Rule rule : rules) {
 
                     List<Rule> container = languageRules.get(rule.getLanguage());
 
@@ -64,7 +64,7 @@ public class RuleServiceImpl implements RuleService {
                     container.add(rule);
                 }
 
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 e.printStackTrace();
             }
         }
@@ -76,14 +76,13 @@ public class RuleServiceImpl implements RuleService {
     }
 
     @Override
-    public List<Rule> getRulesFor(Language language) {
-        List<Rule> rules = languageRules.get(language);
+    public List<Rule> getRulesFor(final Language language) {
+        final List<Rule> rules = languageRules.get(language);
         return rules == null ? Collections.<Rule>emptyList() : rules;
     }
 
     @Override
-    public Rule getRule(String id) {
+    public Rule getRule(final String id) {
         return rules.get(id);
     }
 }
-

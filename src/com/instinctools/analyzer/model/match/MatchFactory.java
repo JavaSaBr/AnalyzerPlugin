@@ -6,11 +6,11 @@ import com.instinctools.analyzer.model.match.qualified.QualifiedName;
 
 /**
  * Created by ronn on 09.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class MatchFactory {
 
-    public static Match create(QualifiedName qualifiedName, Method method) {
+    public static Match create(final QualifiedName qualifiedName, final Method method) {
         return new MatchImpl(qualifiedName, method);
     }
 }

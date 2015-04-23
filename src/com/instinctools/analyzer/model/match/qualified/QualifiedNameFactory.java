@@ -6,11 +6,11 @@ import java.util.List;
 
 /**
  * Created by ronn on 09.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class QualifiedNameFactory {
 
-    public static QualifiedName create(List<String> classNames) {
+    public static QualifiedName create(final List<String> classNames) {
         return new QualifiedNameImpl(classNames);
     }
 }

@@ -9,13 +9,13 @@ import com.intellij.psi.PsiTreeChangeEvent;
 
 /**
  * Created by ronn on 16.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class AnalyzerPsiTreeChangeListener extends PsiTreeChangeAdapter {
 
     private final AnalyzerProjectComponent projectComponent;
 
-    public AnalyzerPsiTreeChangeListener(AnalyzerProjectComponent projectComponent) {
+    public AnalyzerPsiTreeChangeListener(final AnalyzerProjectComponent projectComponent) {
         this.projectComponent = projectComponent;
     }
 
@@ -24,23 +24,9 @@ public class AnalyzerPsiTreeChangeListener extends PsiTreeChangeAdapter {
     }
 
     @Override
-    public void childAdded(PsiTreeChangeEvent event) {
+    public void childAdded(final PsiTreeChangeEvent event) {
 
-        PsiFile file = event.getFile();
-
-        if (!(file instanceof PsiJavaFile)) {
-            return;
-        } else if (!projectComponent.hasMarkersFor(file)) {
-            return;
-        }
-
-        Utils.startAnalyze(new AnalysisScope(file), file.getProject(), false);
-    }
-
-    @Override
-    public void childRemoved(PsiTreeChangeEvent event) {
-
-        PsiFile file = event.getFile();
+        final PsiFile file = event.getFile();
 
         if (!(file instanceof PsiJavaFile)) {
             return;
@@ -52,23 +38,9 @@ public class AnalyzerPsiTreeChangeListener extends PsiTreeChangeAdapter {
     }
 
     @Override
-    public void childReplaced(PsiTreeChangeEvent event) {
+    public void childRemoved(final PsiTreeChangeEvent event) {
 
-        PsiFile file = event.getFile();
-
-        if (!(file instanceof PsiJavaFile)) {
-            return;
-        } else if (!projectComponent.hasMarkersFor(file)) {
-            return;
-        }
-
-        Utils.startAnalyze(new AnalysisScope(file), file.getProject(), false);
-    }
-
-    @Override
-    public void childrenChanged(PsiTreeChangeEvent event) {
-
-        PsiFile file = event.getFile();
+        final PsiFile file = event.getFile();
 
         if (!(file instanceof PsiJavaFile)) {
             return;
@@ -80,9 +52,37 @@ public class AnalyzerPsiTreeChangeListener extends PsiTreeChangeAdapter {
     }
 
     @Override
-    public void childMoved(PsiTreeChangeEvent event) {
+    public void childReplaced(final PsiTreeChangeEvent event) {
 
-        PsiFile file = event.getFile();
+        final PsiFile file = event.getFile();
+
+        if (!(file instanceof PsiJavaFile)) {
+            return;
+        } else if (!projectComponent.hasMarkersFor(file)) {
+            return;
+        }
+
+        Utils.startAnalyze(new AnalysisScope(file), file.getProject(), false);
+    }
+
+    @Override
+    public void childrenChanged(final PsiTreeChangeEvent event) {
+
+        final PsiFile file = event.getFile();
+
+        if (!(file instanceof PsiJavaFile)) {
+            return;
+        } else if (!projectComponent.hasMarkersFor(file)) {
+            return;
+        }
+
+        Utils.startAnalyze(new AnalysisScope(file), file.getProject(), false);
+    }
+
+    @Override
+    public void childMoved(final PsiTreeChangeEvent event) {
+
+        final PsiFile file = event.getFile();
 
         if (!(file instanceof PsiJavaFile)) {
             return;

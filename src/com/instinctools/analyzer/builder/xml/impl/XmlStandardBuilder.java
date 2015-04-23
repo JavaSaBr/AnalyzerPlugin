@@ -16,7 +16,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
  * Created by ronn on 09.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class XmlStandardBuilder implements StandardBuilder {
 
@@ -25,7 +25,7 @@ public class XmlStandardBuilder implements StandardBuilder {
     public static final String NODE_LONG_DESCRIPTION = "LongDescription";
 
     @Override
-    public Standard build(StandardSource source) {
+    public Standard build(final StandardSource source) {
 
         if (!(source instanceof XmlStandardSource)) {
             throw new IllegalArgumentException("this is builder only for " + XmlStandardSource.class.getName());
@@ -37,13 +37,13 @@ public class XmlStandardBuilder implements StandardBuilder {
 
         try {
 
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
+            final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilder builder = factory.newDocumentBuilder();
             document = builder.parse(((XmlStandardSource) source).getStream());
 
             content = IOUtils.toString(((XmlStandardSource) source).getStream());
 
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new RuntimeException(e);
         }
 
@@ -53,7 +53,7 @@ public class XmlStandardBuilder implements StandardBuilder {
                 continue;
             }
 
-            MutableStandard standard = parseStandart((Element) node);
+            final MutableStandard standard = parseStandart((Element) node);
             standard.setContent(content);
 
             result = standard;
@@ -63,9 +63,9 @@ public class XmlStandardBuilder implements StandardBuilder {
         return result;
     }
 
-    private MutableStandard parseStandart(Element parent) {
+    private MutableStandard parseStandart(final Element parent) {
 
-        MutableStandard standart = StandardFactory.create();
+        final MutableStandard standart = StandardFactory.create();
 
         for (Node node = parent.getFirstChild(); node != null; node = node.getNextSibling()) {
 
@@ -73,7 +73,7 @@ public class XmlStandardBuilder implements StandardBuilder {
                 continue;
             }
 
-            Element element = (Element) node;
+            final Element element = (Element) node;
 
             if (NODE_TITLE.equals(element.getNodeName())) {
                 standart.setTitle(parseContent(element));
@@ -87,7 +87,7 @@ public class XmlStandardBuilder implements StandardBuilder {
         return standart;
     }
 
-    private String parseContent(Element element) {
+    private String parseContent(final Element element) {
 
         String textContent = element.getTextContent();
         textContent = textContent.trim();

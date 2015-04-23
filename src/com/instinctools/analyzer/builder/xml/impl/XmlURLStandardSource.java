@@ -8,13 +8,13 @@ import java.net.URL;
 
 /**
  * Created by ronn on 09.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class XmlURLStandardSource implements XmlStandardSource {
 
     private final URL url;
 
-    public XmlURLStandardSource(URL url) {
+    public XmlURLStandardSource(final URL url) {
         this.url = url;
     }
 

@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * Created by ronn on 14.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class SecurityLineMarkerProvider implements LineMarkerProvider {
 
@@ -27,36 +27,36 @@ public class SecurityLineMarkerProvider implements LineMarkerProvider {
 
     @Nullable
     @Override
-    public LineMarkerInfo getLineMarkerInfo(PsiElement element) {
+    public LineMarkerInfo getLineMarkerInfo(final PsiElement element) {
 
         if (!(element instanceof PsiMethodCallExpression)) {
             return null;
         }
 
-        MarkerService markerService = ServiceManager.getService(MarkerService.class);
-        SecurityMarker marker = markerService.findMarkerFor(element);
+        final MarkerService markerService = ServiceManager.getService(MarkerService.class);
+        final SecurityMarker marker = markerService.findMarkerFor(element);
 
         if (marker == null) {
             return null;
         }
 
-        TextRange textRange = marker.getTextRange();
-        Icon icon = AnalyzerIcons.ICON_16x16_COLOR_M;
-        TooltipProvider tooltipProvider = new TooltipProvider(marker);
-        IconNavigatorHandler navigatorHandler = new IconNavigatorHandler(marker, element);
+        final TextRange textRange = marker.getTextRange();
+        final Icon icon = AnalyzerIcons.ICON_16x16_COLOR_M;
+        final TooltipProvider tooltipProvider = new TooltipProvider(marker);
+        final IconNavigatorHandler navigatorHandler = new IconNavigatorHandler(marker, element);
 
-        LineMarkerInfo<PsiElement> markerInfo = new LineMarkerInfo<PsiElement>(element, textRange, icon, 4, tooltipProvider, navigatorHandler, GutterIconRenderer.Alignment.LEFT);
+        final LineMarkerInfo<PsiElement> markerInfo = new LineMarkerInfo<PsiElement>(element, textRange, icon, 4, tooltipProvider, navigatorHandler, GutterIconRenderer.Alignment.LEFT);
         return markerInfo;
     }
 
     @Override
-    public void collectSlowLineMarkers(List<PsiElement> list, Collection<LineMarkerInfo> collection) {
+    public void collectSlowLineMarkers(final List<PsiElement> list, final Collection<LineMarkerInfo> collection) {
 
-        int i = 0;
+        final int i = 0;
 
-        for (PsiElement element : list) {
+        for (final PsiElement element : list) {
 
-            LineMarkerInfo markerInfo = getLineMarkerInfo(element);
+            final LineMarkerInfo markerInfo = getLineMarkerInfo(element);
 
             if (markerInfo == null) {
                 continue;

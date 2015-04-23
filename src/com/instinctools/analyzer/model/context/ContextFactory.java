@@ -4,11 +4,11 @@ import com.instinctools.analyzer.model.context.impl.ContextImpl;
 
 /**
  * Created by ronn on 09.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class ContextFactory {
 
-    public static Context create(String name) {
+    public static Context create(final String name) {
         return new ContextImpl(name);
     }
 }

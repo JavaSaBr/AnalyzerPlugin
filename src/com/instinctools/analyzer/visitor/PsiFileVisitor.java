@@ -8,15 +8,15 @@ import com.intellij.psi.PsiFile;
 
 /**
  * Created by ronn on 10.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class PsiFileVisitor extends PsiElementVisitor {
 
     @Override
-    public void visitElement(PsiElement element) {
+    public void visitElement(final PsiElement element) {
         super.visitElement(element);
 
-        for (PsiElement child : element.getChildren()) {
+        for (final PsiElement child : element.getChildren()) {
             child.accept(this);
         }
 
@@ -24,8 +24,8 @@ public class PsiFileVisitor extends PsiElementVisitor {
             return;
         }
 
-        PsiFile psiFile = (PsiFile) element;
-        ProblemFinder finder = ProblemFinderFactory.createFor(psiFile);
+        final PsiFile psiFile = (PsiFile) element;
+        final ProblemFinder finder = ProblemFinderFactory.createFor(psiFile);
 
         if (finder != null) {
             finder.find(psiFile);

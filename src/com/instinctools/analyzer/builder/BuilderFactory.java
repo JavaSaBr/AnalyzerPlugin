@@ -7,11 +7,11 @@ import com.instinctools.analyzer.builder.xml.impl.XmlStandardBuilder;
 
 /**
  * Created by ronn on 09.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class BuilderFactory {
 
-    public static RuleBuilder getRuleBuilderFor(RuleSource source) {
+    public static RuleBuilder getRuleBuilderFor(final RuleSource source) {
 
         if (source instanceof XmlRuleSource) {
             return new XmlRuleBuilder();
@@ -20,7 +20,7 @@ public class BuilderFactory {
         throw new IllegalArgumentException("unknown rule source");
     }
 
-    public static StandardBuilder getStandardBuilderFor(StandardSource source) {
+    public static StandardBuilder getStandardBuilderFor(final StandardSource source) {
 
         if (source instanceof XmlStandardSource) {
             return new XmlStandardBuilder();

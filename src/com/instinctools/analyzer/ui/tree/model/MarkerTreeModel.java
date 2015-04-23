@@ -8,13 +8,13 @@ import javax.swing.tree.TreePath;
 
 /**
  * Created by ronn on 14.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class MarkerTreeModel implements TreeModel {
 
-    private AbstractTreeNode root;
+    private final AbstractTreeNode root;
 
-    public MarkerTreeModel(Project project) {
+    public MarkerTreeModel(final Project project) {
         this.root = new ProjectTreeNode(project);
         this.root.loadChilds();
     }
@@ -25,7 +25,7 @@ public class MarkerTreeModel implements TreeModel {
     }
 
     @Override
-    public Object getChild(Object parent, int index) {
+    public Object getChild(final Object parent, final int index) {
 
         if (parent instanceof AbstractTreeNode) {
             return ((AbstractTreeNode) parent).getChildAt(index);
@@ -35,7 +35,7 @@ public class MarkerTreeModel implements TreeModel {
     }
 
     @Override
-    public int getChildCount(Object parent) {
+    public int getChildCount(final Object parent) {
 
         if (parent instanceof AbstractTreeNode) {
             return ((AbstractTreeNode) parent).getChildCount();
@@ -45,7 +45,7 @@ public class MarkerTreeModel implements TreeModel {
     }
 
     @Override
-    public boolean isLeaf(Object node) {
+    public boolean isLeaf(final Object node) {
 
         if (node instanceof AbstractTreeNode) {
             return ((AbstractTreeNode) node).isLeaf();
@@ -55,22 +55,22 @@ public class MarkerTreeModel implements TreeModel {
     }
 
     @Override
-    public void valueForPathChanged(TreePath path, Object newValue) {
+    public void valueForPathChanged(final TreePath path, final Object newValue) {
 
     }
 
     @Override
-    public int getIndexOfChild(Object parent, Object child) {
+    public int getIndexOfChild(final Object parent, final Object child) {
         return 0;
     }
 
     @Override
-    public void addTreeModelListener(TreeModelListener l) {
+    public void addTreeModelListener(final TreeModelListener l) {
 
     }
 
     @Override
-    public void removeTreeModelListener(TreeModelListener l) {
+    public void removeTreeModelListener(final TreeModelListener l) {
 
     }
 }

@@ -12,16 +12,16 @@ import java.util.List;
 
 /**
  * Created by ronn on 14.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class PsiFileTreeNode extends AbstractTreeNode {
 
     private static final Icon EXPAND_ICON = new MaskIcon(AllIcons.Nodes.Class, JBColor.BLACK);
     private static final Icon COLLAPSE_ICON = EXPAND_ICON;
 
-    private List<SecurityMarker> markers;
+    private final List<SecurityMarker> markers;
 
-    public PsiFileTreeNode(Project project, PsiFile file, List<SecurityMarker> markers, AbstractTreeNode parent) {
+    public PsiFileTreeNode(final Project project, final PsiFile file, final List<SecurityMarker> markers, final AbstractTreeNode parent) {
         super(file, parent);
 
         this.markers = markers;
@@ -30,11 +30,11 @@ public class PsiFileTreeNode extends AbstractTreeNode {
     @Override
     public void loadChilds() {
 
-        List<AbstractTreeNode> children = getChildren();
+        final List<AbstractTreeNode> children = getChildren();
 
-        for (SecurityMarker marker : markers) {
+        for (final SecurityMarker marker : markers) {
 
-            MarkerTreeNode child = new MarkerTreeNode(marker, ((PsiFile) getValue()).getProject(), this);
+            final MarkerTreeNode child = new MarkerTreeNode(marker, ((PsiFile) getValue()).getProject(), this);
             child.loadChilds();
 
             children.add(child);

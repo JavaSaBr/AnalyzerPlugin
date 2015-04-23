@@ -17,18 +17,18 @@ import java.util.Map;
 
 /**
  * Created by ronn on 14.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class PsiDirectoryTreeNode extends AbstractTreeNode {
 
     private static final Icon EXPAND_ICON = new MaskIcon(AllIcons.Nodes.Package, JBColor.BLACK);
     private static final Icon COLLAPSE_ICON = EXPAND_ICON;
 
-    private Project project;
+    private final Project project;
 
-    private List<SecurityMarker> markers;
+    private final List<SecurityMarker> markers;
 
-    public PsiDirectoryTreeNode(Project project, PsiDirectory directory, List<SecurityMarker> markers, AbstractTreeNode parent) {
+    public PsiDirectoryTreeNode(final Project project, final PsiDirectory directory, final List<SecurityMarker> markers, final AbstractTreeNode parent) {
         super(directory, parent);
 
         this.project = project;
@@ -38,16 +38,16 @@ public class PsiDirectoryTreeNode extends AbstractTreeNode {
     @Override
     public void loadChilds() {
 
-        Map<PsiDirectory, List<SecurityMarker>> directories = new HashMap<PsiDirectory, List<SecurityMarker>>();
-        Map<PsiFile, List<SecurityMarker>> files = new HashMap<PsiFile, List<SecurityMarker>>();
+        final Map<PsiDirectory, List<SecurityMarker>> directories = new HashMap<PsiDirectory, List<SecurityMarker>>();
+        final Map<PsiFile, List<SecurityMarker>> files = new HashMap<PsiFile, List<SecurityMarker>>();
 
-        PsiManager psiManager = PsiManager.getInstance(project);
+        final PsiManager psiManager = PsiManager.getInstance(project);
 
-        PsiDirectory root = (PsiDirectory) getValue();
+        final PsiDirectory root = (PsiDirectory) getValue();
 
-        for (SecurityMarker marker : markers) {
+        for (final SecurityMarker marker : markers) {
 
-            PsiFile psiFile = psiManager.findFile(marker.getFile());
+            final PsiFile psiFile = psiManager.findFile(marker.getFile());
 
             if (psiFile == null) {
                 continue;
@@ -91,23 +91,23 @@ public class PsiDirectoryTreeNode extends AbstractTreeNode {
             directoryMarkers.add(marker);
         }
 
-        List<AbstractTreeNode> children = getChildren();
+        final List<AbstractTreeNode> children = getChildren();
 
-        for (Map.Entry<PsiDirectory, List<SecurityMarker>> entry : directories.entrySet()) {
+        for (final Map.Entry<PsiDirectory, List<SecurityMarker>> entry : directories.entrySet()) {
 
-            PsiDirectory parent = entry.getKey();
+            final PsiDirectory parent = entry.getKey();
 
-            PsiDirectoryTreeNode child = new PsiDirectoryTreeNode(project, parent, entry.getValue(), this);
+            final PsiDirectoryTreeNode child = new PsiDirectoryTreeNode(project, parent, entry.getValue(), this);
             child.loadChilds();
 
             children.add(child);
         }
 
-        for (Map.Entry<PsiFile, List<SecurityMarker>> entry : files.entrySet()) {
+        for (final Map.Entry<PsiFile, List<SecurityMarker>> entry : files.entrySet()) {
 
-            PsiFile file = entry.getKey();
+            final PsiFile file = entry.getKey();
 
-            PsiFileTreeNode child = new PsiFileTreeNode(project, file, entry.getValue(), this);
+            final PsiFileTreeNode child = new PsiFileTreeNode(project, file, entry.getValue(), this);
             child.loadChilds();
 
             children.add(child);

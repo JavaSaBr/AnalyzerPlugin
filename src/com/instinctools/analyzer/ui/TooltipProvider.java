@@ -10,13 +10,13 @@ import java.util.List;
 
 /**
  * Created by ronn on 14.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class TooltipProvider implements Function<PsiElement, String> {
 
-    private SecurityMarker marker;
+    private final SecurityMarker marker;
 
-    public TooltipProvider(SecurityMarker marker) {
+    public TooltipProvider(final SecurityMarker marker) {
         this.marker = marker;
     }
 
@@ -27,14 +27,14 @@ public class TooltipProvider implements Function<PsiElement, String> {
 
     public String getTooltipText() {
 
-        Rule rule = marker.getRule();
-        List<Standard> standards = rule.getStandards();
+        final Rule rule = marker.getRule();
+        final List<Standard> standards = rule.getStandards();
 
         final StringBuilder buffer = new StringBuilder();
         buffer.append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
         buffer.append("<HTML><BODY>");
 
-        for (Standard standard : standards) {
+        for (final Standard standard : standards) {
             buffer.append(standard.getShortDescription());
         }
 

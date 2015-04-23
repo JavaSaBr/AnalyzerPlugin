@@ -6,13 +6,13 @@ import java.util.List;
 
 /**
  * Created by ronn on 09.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class QualifiedNameImpl implements QualifiedName {
 
     private final List<String> classNames;
 
-    public QualifiedNameImpl(List<String> classNames) {
+    public QualifiedNameImpl(final List<String> classNames) {
         this.classNames = classNames;
     }
 
@@ -23,8 +23,6 @@ public class QualifiedNameImpl implements QualifiedName {
 
     @Override
     public String toString() {
-        return "QualifiedNameImpl{" +
-                "classNames=" + classNames +
-                '}';
+        return "QualifiedNameImpl{" + "classNames=" + classNames + '}';
     }
 }

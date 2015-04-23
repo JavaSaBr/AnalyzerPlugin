@@ -4,11 +4,11 @@ import com.instinctools.analyzer.model.category.impl.CategoryImpl;
 
 /**
  * Created by ronn on 09.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class CategoryFactory {
 
-    public static Category create(String name) {
+    public static Category create(final String name) {
         return new CategoryImpl(name);
     }
 }

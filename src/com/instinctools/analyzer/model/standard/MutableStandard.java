@@ -2,7 +2,7 @@ package com.instinctools.analyzer.model.standard;
 
 /**
  * Created by ronn on 15.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public interface MutableStandard extends Standard {
 

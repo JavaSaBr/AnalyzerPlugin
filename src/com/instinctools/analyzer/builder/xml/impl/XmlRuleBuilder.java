@@ -33,7 +33,7 @@ import java.util.List;
 
 /**
  * Created by ronn on 09.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class XmlRuleBuilder implements RuleBuilder {
 
@@ -54,7 +54,7 @@ public class XmlRuleBuilder implements RuleBuilder {
     public static final String ATTR_FILE = "file";
 
     @Override
-    public List<Rule> build(RuleSource source) {
+    public List<Rule> build(final RuleSource source) {
 
         if (!(source instanceof XmlRuleSource)) {
             throw new IllegalArgumentException("this is builder only for " + XmlRuleSource.class.getName());
@@ -64,15 +64,15 @@ public class XmlRuleBuilder implements RuleBuilder {
 
         try {
 
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
+            final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilder builder = factory.newDocumentBuilder();
             document = builder.parse(((XmlRuleSource) source).getStream());
 
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new RuntimeException(e);
         }
 
-        List<Rule> result = new ArrayList<Rule>();
+        final List<Rule> result = new ArrayList<Rule>();
 
         for (Node node = document.getFirstChild(); node != null; node = node.getNextSibling()) {
 
@@ -86,7 +86,7 @@ public class XmlRuleBuilder implements RuleBuilder {
         return result;
     }
 
-    private void parseRules(Element parent, List<Rule> container) {
+    private void parseRules(final Element parent, final List<Rule> container) {
 
         for (Node node = parent.getFirstChild(); node != null; node = node.getNextSibling()) {
 
@@ -94,7 +94,7 @@ public class XmlRuleBuilder implements RuleBuilder {
                 continue;
             }
 
-            Rule rule = parseRule((Element) node);
+            final Rule rule = parseRule((Element) node);
 
             if (rule != null) {
                 container.add(rule);
@@ -102,14 +102,14 @@ public class XmlRuleBuilder implements RuleBuilder {
         }
     }
 
-    private Rule parseRule(Element parent) {
+    private Rule parseRule(final Element parent) {
 
-        String id = parent.getAttribute(ATTR_ID);
-        String langName = parent.getAttribute(ATTR_LANG);
+        final String id = parent.getAttribute(ATTR_ID);
+        final String langName = parent.getAttribute(ATTR_LANG);
 
-        Language language = LanguageFactory.create(langName);
+        final Language language = LanguageFactory.create(langName);
 
-        MutableRule rule = RuleFactory.create();
+        final MutableRule rule = RuleFactory.create();
         rule.setLanguage(language);
         rule.setId(id);
 
@@ -118,7 +118,7 @@ public class XmlRuleBuilder implements RuleBuilder {
         return rule;
     }
 
-    private void parseRule(MutableRule rule, Element parent) {
+    private void parseRule(final MutableRule rule, final Element parent) {
 
         for (Node node = parent.getFirstChild(); node != null; node = node.getNextSibling()) {
 
@@ -126,9 +126,9 @@ public class XmlRuleBuilder implements RuleBuilder {
                 continue;
             }
 
-            Element element = (Element) node;
+            final Element element = (Element) node;
 
-            String nodeName = node.getNodeName();
+            final String nodeName = node.getNodeName();
 
             if (NODE_CATEGORY.equals(nodeName)) {
                 rule.setCategory(parseCategory(element));
@@ -140,10 +140,10 @@ public class XmlRuleBuilder implements RuleBuilder {
                 rule.setDescription(parseDescription(element));
             } else if (NODE_STANDARDS.equals(nodeName)) {
 
-                List<Standard> standards = parseStandarts(element);
+                final List<Standard> standards = parseStandarts(element);
 
                 if (!standards.isEmpty()) {
-                    for (Standard standard : standards) {
+                    for (final Standard standard : standards) {
                         rule.addStandart(standard);
                     }
                 }
@@ -151,7 +151,7 @@ public class XmlRuleBuilder implements RuleBuilder {
         }
     }
 
-    private Category parseCategory(Element element) {
+    private Category parseCategory(final Element element) {
 
         String textContent = element.getTextContent();
         textContent = textContent.trim();
@@ -159,7 +159,7 @@ public class XmlRuleBuilder implements RuleBuilder {
         return CategoryFactory.create(textContent);
     }
 
-    private String parseTitle(Element element) {
+    private String parseTitle(final Element element) {
 
         String textContent = element.getTextContent();
         textContent = textContent.trim();
@@ -167,7 +167,7 @@ public class XmlRuleBuilder implements RuleBuilder {
         return textContent;
     }
 
-    private String parseDescription(Element element) {
+    private String parseDescription(final Element element) {
 
         String textContent = element.getTextContent();
         textContent = textContent.trim();
@@ -175,7 +175,7 @@ public class XmlRuleBuilder implements RuleBuilder {
         return textContent;
     }
 
-    private Match parseMatch(Element parent) {
+    private Match parseMatch(final Element parent) {
 
         QualifiedName qualifiedName = null;
         Method method = null;
@@ -200,41 +200,41 @@ public class XmlRuleBuilder implements RuleBuilder {
         return MatchFactory.create(qualifiedName, method);
     }
 
-    private Method parseMethod(Element element) {
+    private Method parseMethod(final Element element) {
 
         String textContent = element.getTextContent();
         textContent = textContent.trim();
 
-        List<String> methodNames = new ArrayList<String>();
+        final List<String> methodNames = new ArrayList<String>();
 
         if (textContent.contains("(") && textContent.contains(")")) {
 
-            int beginIndex = textContent.indexOf('(');
-            int endIndex = textContent.indexOf(')');
+            final int beginIndex = textContent.indexOf('(');
+            final int endIndex = textContent.indexOf(')');
 
             textContent = textContent.substring(beginIndex + 1, endIndex);
         }
 
-        for (String name : textContent.split("[|]")) {
+        for (final String name : textContent.split("[|]")) {
             methodNames.add(name);
         }
 
         return MethodFactory.create(methodNames);
     }
 
-    private QualifiedName parseQualifiedName(Element element) {
+    private QualifiedName parseQualifiedName(final Element element) {
 
         String textContent = element.getTextContent();
         textContent = textContent.trim();
 
-        List<String> classNames = Arrays.asList(textContent.split("[|]"));
+        final List<String> classNames = Arrays.asList(textContent.split("[|]"));
 
         return QualifiedNameFactory.create(classNames);
     }
 
-    private List<Standard> parseStandarts(Element parent) {
+    private List<Standard> parseStandarts(final Element parent) {
 
-        List<Standard> result = new ArrayList<Standard>();
+        final List<Standard> result = new ArrayList<Standard>();
 
         for (Node node = parent.getFirstChild(); node != null; node = node.getNextSibling()) {
 
@@ -242,13 +242,13 @@ public class XmlRuleBuilder implements RuleBuilder {
                 continue;
             }
 
-            Element element = (Element) node;
+            final Element element = (Element) node;
 
-            String file = element.getAttribute(ATTR_FILE);
-            Context context = parseContext(element);
+            final String file = element.getAttribute(ATTR_FILE);
+            final Context context = parseContext(element);
 
-            StandardService standartService = ServiceManager.getService(StandardService.class);
-            Standard standard = standartService.getStandardForFile(file);
+            final StandardService standartService = ServiceManager.getService(StandardService.class);
+            final Standard standard = standartService.getStandardForFile(file);
 
             if (standard == null) {
                 throw new RuntimeException("not found standard for file " + file);
@@ -260,7 +260,7 @@ public class XmlRuleBuilder implements RuleBuilder {
         return result;
     }
 
-    private Context parseContext(Element parent) {
+    private Context parseContext(final Element parent) {
 
         for (Node node = parent.getFirstChild(); node != null; node = node.getNextSibling()) {
 
@@ -268,7 +268,7 @@ public class XmlRuleBuilder implements RuleBuilder {
                 continue;
             }
 
-            Element element = (Element) node;
+            final Element element = (Element) node;
 
             String textContent = element.getTextContent();
             textContent = textContent.trim();

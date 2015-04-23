@@ -12,12 +12,12 @@ import com.intellij.psi.PsiFile;
 
 /**
  * Created by ronn on 10.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class StartAnalyzeAction extends AnAction {
 
     @Override
-    public void actionPerformed(AnActionEvent event) {
+    public void actionPerformed(final AnActionEvent event) {
 
         PsiElement element = event.getData(LangDataKeys.PSI_ELEMENT);
         AnalysisScope analysisScope = null;

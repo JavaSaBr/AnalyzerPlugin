@@ -17,50 +17,50 @@ import java.util.List;
 
 /**
  * Created by ronn on 13.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class MarkerServiceImpl implements MarkerService {
 
     @Override
-    public SecurityMarker buildMarker(Rule rule, PsiMethodCallExpression expression) {
+    public SecurityMarker buildMarker(final Rule rule, final PsiMethodCallExpression expression) {
 
-        Project project = expression.getProject();
-        PsiFile containingFile = expression.getContainingFile();
+        final Project project = expression.getProject();
+        final PsiFile containingFile = expression.getContainingFile();
 
-        MutableSecurityMarker marker = (MutableSecurityMarker) SecurityMarkerFactory.create();
+        final MutableSecurityMarker marker = (MutableSecurityMarker) SecurityMarkerFactory.create();
         marker.setFile(containingFile.getVirtualFile());
         marker.setTextRange(expression.getTextRange());
         marker.setRule(rule);
 
-        AnalyzerProjectComponent analyzerComponent = project.getComponent(AnalyzerProjectComponent.class);
+        final AnalyzerProjectComponent analyzerComponent = project.getComponent(AnalyzerProjectComponent.class);
         analyzerComponent.addMarker(marker);
 
         return marker;
     }
 
     @Override
-    public SecurityMarker findMarkerFor(PsiElement element) {
+    public SecurityMarker findMarkerFor(final PsiElement element) {
 
-        Project project = element.getProject();
-        AnalyzerProjectComponent analyzerProjectComponent = project.getComponent(AnalyzerProjectComponent.class);
-        List<SecurityMarker> markers = analyzerProjectComponent.getMarkers();
+        final Project project = element.getProject();
+        final AnalyzerProjectComponent analyzerProjectComponent = project.getComponent(AnalyzerProjectComponent.class);
+        final List<SecurityMarker> markers = analyzerProjectComponent.getMarkers();
 
         if (markers.isEmpty()) {
             return null;
         }
 
-        PsiFile containingFile = element.getContainingFile();
-        VirtualFile file = containingFile.getVirtualFile();
+        final PsiFile containingFile = element.getContainingFile();
+        final VirtualFile file = containingFile.getVirtualFile();
 
         for (SecurityMarker marker : markers) {
 
-            VirtualFile markedFile = marker.getFile();
+            final VirtualFile markedFile = marker.getFile();
 
             if (!file.equals(markedFile)) {
                 continue;
             }
 
-            TextRange textRange = marker.getTextRange();
+            final TextRange textRange = marker.getTextRange();
 
             if (element.getTextOffset() != textRange.getStartOffset()) {
                 continue;
@@ -73,16 +73,16 @@ public class MarkerServiceImpl implements MarkerService {
     }
 
     @Override
-    public void clearMarkersFor(Project project, VirtualFile file) {
+    public void clearMarkersFor(final Project project, final VirtualFile file) {
 
-        AnalyzerProjectComponent analyzerProjectComponent = project.getComponent(AnalyzerProjectComponent.class);
-        List<SecurityMarker> markers = analyzerProjectComponent.getMarkers();
+        final AnalyzerProjectComponent analyzerProjectComponent = project.getComponent(AnalyzerProjectComponent.class);
+        final List<SecurityMarker> markers = analyzerProjectComponent.getMarkers();
 
         if (markers.isEmpty()) {
             return;
         }
 
-        for (SecurityMarker marker : markers) {
+        for (final SecurityMarker marker : markers) {
 
             if (!file.equals(marker.getFile())) {
                 continue;

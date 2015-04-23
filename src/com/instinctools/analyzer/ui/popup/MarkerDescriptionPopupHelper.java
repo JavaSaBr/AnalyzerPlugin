@@ -9,20 +9,20 @@ import java.awt.*;
 
 /**
  * Created by ronn on 15.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class MarkerDescriptionPopupHelper {
 
-    public static void show(SecurityMarker marker) {
+    public static void show(final SecurityMarker marker) {
 
-        JBPopupFactory popupFactory = JBPopupFactory.getInstance();
+        final JBPopupFactory popupFactory = JBPopupFactory.getInstance();
 
-        ComponentPopupBuilder builder = popupFactory.createComponentPopupBuilder(new MarkerDescriptionPopup(marker), null);
+        final ComponentPopupBuilder builder = popupFactory.createComponentPopupBuilder(new MarkerDescriptionPopup(marker), null);
         builder.setTitle("Marker description");
         builder.setMinSize(new Dimension(600, 400));
         builder.setResizable(true);
 
-        JBPopup popup = builder.createPopup();
+        final JBPopup popup = builder.createPopup();
         popup.showInFocusCenter();
     }
 }

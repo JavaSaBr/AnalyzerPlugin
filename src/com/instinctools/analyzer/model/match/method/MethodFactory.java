@@ -6,11 +6,11 @@ import java.util.List;
 
 /**
  * Created by ronn on 10.04.15.
- * //TODO need add documentation
+ * Documentation follows here.
  */
 public class MethodFactory {
 
-    public static Method create(List<String> methodNames) {
+    public static Method create(final List<String> methodNames) {
         return new MethodImpl(methodNames);
     }
 }
