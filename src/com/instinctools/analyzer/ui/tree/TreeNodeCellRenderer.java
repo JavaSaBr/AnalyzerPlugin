@@ -19,8 +19,9 @@ public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer {
 
     private static final Stroke STROKE = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{1, 1}, 0);
 
+    private static final int H_GAP = 4;
+
     private final boolean drawsFocusBorderAroundIcon;
-    private final int hGap = 4;
 
     private final JLabel icon;
 
@@ -54,7 +55,7 @@ public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer {
 
         final double border = 0;
         final double rowsGap = 0;
-        final double colsGap = hGap;
+        final double colsGap = H_GAP;
         final double[][] size = {{border, TableLayoutConstants.PREFERRED, colsGap, TableLayoutConstants.PREFERRED, colsGap, TableLayoutConstants.PREFERRED, colsGap, TableLayoutConstants.PREFERRED, border}, // Columns
                 {border, TableLayoutConstants.PREFERRED, border}};// Rows
         final LayoutManager tbl = new TableLayout(size);
@@ -147,17 +148,8 @@ public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer {
             // Path highlighting
             final TreePath path = tree.getPathForRow(row);
             final TreePath selectionPath = tree.getSelectionPath();
-            if (selectionPath != null && selectionPath.getPathCount() > 1) {
-                final TreePath leadParentPath = new TreePath(new Object[]{selectionPath.getPathComponent(0), selectionPath.getPathComponent(1)});
 
-                if (tree.getRowForPath(leadParentPath) > 0 && leadParentPath.isDescendant(path)) {
-                    setBackgroundNonSelectionColor(UIManager.getColor("Tree.textBackground"));
-                } else {
-                    setBackgroundNonSelectionColor(UIManager.getColor("Tree.textBackground"));
-                }
-            } else {
-                setBackgroundNonSelectionColor(UIManager.getColor("Tree.textBackground"));
-            }
+            setBackgroundNonSelectionColor(UIManager.getColor("Tree.textBackground"));
 
             hits.setForeground(getHitsForegroundColor());
             hits.setBackground(bColor);
@@ -266,7 +258,7 @@ public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer {
             size.width += 50; //link
         }
 
-        size.width += hGap; // BorderLayout hGap
+        size.width += H_GAP; // BorderLayout H_GAP
         size.height += 2;
 
         setSize(size);
@@ -279,7 +271,7 @@ public class TreeNodeCellRenderer extends JPanel implements TreeCellRenderer {
 
 
     private int getIconLabelStart() {
-        return icon.getWidth() + hGap - 2; // icon.getX();
+        return icon.getWidth() + H_GAP - 2; // icon.getX();
     }
 
 

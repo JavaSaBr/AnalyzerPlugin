@@ -25,35 +25,35 @@
     -->
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceInterface="com.instonctools.analyzer.service.RuleService"
-                            serviceImplementation="com.instonctools.analyzer.service.impl.RuleServiceImpl"/>
-        <applicationService serviceInterface="com.instonctools.analyzer.service.StandardService"
-                            serviceImplementation="com.instonctools.analyzer.service.impl.StandardServiceImpl"/>
-        <applicationService serviceInterface="com.instonctools.analyzer.service.MarkerService"
-                            serviceImplementation="com.instonctools.analyzer.service.impl.MarkerServiceImpl"/>
+        <applicationService serviceInterface="com.instinctools.analyzer.service.RuleService"
+                            serviceImplementation="com.instinctools.analyzer.service.impl.RuleServiceImpl"/>
+        <applicationService serviceInterface="com.instinctools.analyzer.service.StandardService"
+                            serviceImplementation="com.instinctools.analyzer.service.impl.StandardServiceImpl"/>
+        <applicationService serviceInterface="com.instinctools.analyzer.service.MarkerService"
+                            serviceImplementation="com.instinctools.analyzer.service.impl.MarkerServiceImpl"/>
         <codeInsight.lineMarkerProvider language="JAVA"
-                                        implementationClass="com.instonctools.analyzer.ui.SecurityLineMarkerProvider"/>
+                                        implementationClass="com.instinctools.analyzer.ui.SecurityLineMarkerProvider"/>
         <toolWindow id="Project Markers" anchor="bottom"
-                    factoryClass="com.instonctools.analyzer.ui.panel.ProjectMarkerPanelFactory"/>
-        <annotator language="JAVA" implementationClass="com.instonctools.analyzer.ui.SecurityLineMarkerAnnotator"/>
+                    factoryClass="com.instinctools.analyzer.ui.panel.ProjectMarkerPanelFactory"/>
+        <annotator language="JAVA" implementationClass="com.instinctools.analyzer.ui.SecurityLineMarkerAnnotator"/>
     </extensions>
 
     <application-components>
         <!-- Add your application components here -->
         <component>
-            <implementation-class>com.instonctools.analyzer.component.AnalyzerApplicationComponent
+            <implementation-class>com.instinctools.analyzer.component.AnalyzerApplicationComponent
             </implementation-class>
         </component>
     </application-components>
 
     <project-components>
         <component>
-            <implementation-class>com.instonctools.analyzer.component.AnalyzerProjectComponent</implementation-class>
+            <implementation-class>com.instinctools.analyzer.component.AnalyzerProjectComponent</implementation-class>
         </component>
     </project-components>
 
     <actions>
-        <action id="com.instinctools.analyzer.Review" class="com.instonctools.analyzer.ui.actions.StartAnalyzeAction"
+        <action id="com.instinctools.analyzer.Review" class="com.instinctools.analyzer.ui.actions.StartAnalyzeAction"
                 text="Analyze security problems"
                 description="Start analyzing security problems">
             <add-to-group group-id="AnalyzeMenu" anchor="first"/>

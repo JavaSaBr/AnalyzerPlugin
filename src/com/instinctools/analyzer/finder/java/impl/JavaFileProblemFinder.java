@@ -7,7 +7,10 @@ import com.instinctools.analyzer.service.MarkerService;
 import com.instinctools.analyzer.service.RuleService;
 import com.intellij.lang.Language;
 import com.intellij.openapi.components.ServiceManager;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiJavaFile;
+import com.intellij.psi.PsiMethod;
 
 import java.util.List;
 
@@ -26,7 +29,6 @@ public class JavaFileProblemFinder implements ProblemFinder {
         markerService.clearMarkersFor(psiFile.getProject(), javaFile.getVirtualFile());
 
         Language language = javaFile.getLanguage();
-        PsiElement context = javaFile.getContext();
 
         RuleService ruleService = ServiceManager.getService(RuleService.class);
         List<Rule> rules = ruleService.getRulesFor(LanguageFactory.create(language.getDisplayName()));

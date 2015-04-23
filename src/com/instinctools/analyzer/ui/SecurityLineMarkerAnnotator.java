@@ -7,7 +7,6 @@ import com.instinctools.analyzer.service.MarkerService;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
 import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethodCallExpression;
 
@@ -37,7 +36,6 @@ public class SecurityLineMarkerAnnotator implements Annotator {
             return;
         }
 
-        TextRange textRange = marker.getTextRange();
         Rule rule = marker.getRule();
 
         List<Standard> standards = rule.getStandards();

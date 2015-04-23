@@ -56,12 +56,8 @@ public class AnalyzerProjectComponent implements ProjectComponent, PersistentSta
 
         List<SecurityMarkerImpl> markers = componentState.getMarkers();
 
-        int count = markers.size();
-
-        markers.remove(marker);
-
-        if (count - markers.size() != 1) {
-            System.out.println("WARNING FOR REMOVE MARKER");
+        synchronized (markers) {
+            markers.remove(marker);
         }
     }
 
@@ -74,7 +70,7 @@ public class AnalyzerProjectComponent implements ProjectComponent, PersistentSta
             return false;
         }
 
-        for (SecurityMarker marker : componentState.getMarkers()) {
+        for (SecurityMarker marker : markers) {
             if (virtualFile.equals(marker.getFile())) {
                 return true;
             }
@@ -102,9 +98,12 @@ public class AnalyzerProjectComponent implements ProjectComponent, PersistentSta
     public List<SecurityMarker> getMarkers() {
 
         List<SecurityMarker> result = new ArrayList<SecurityMarker>();
+        List<SecurityMarkerImpl> markers = componentState.getMarkers();
 
-        for (SecurityMarker marker : componentState.getMarkers()) {
-            result.add(marker);
+        synchronized (markers) {
+            for (SecurityMarker marker : markers) {
+                result.add(marker);
+            }
         }
 
         return result;

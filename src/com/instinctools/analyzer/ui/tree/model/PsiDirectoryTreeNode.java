@@ -48,7 +48,16 @@ public class PsiDirectoryTreeNode extends AbstractTreeNode {
         for (SecurityMarker marker : markers) {
 
             PsiFile psiFile = psiManager.findFile(marker.getFile());
+
+            if (psiFile == null) {
+                continue;
+            }
+
             PsiDirectory parent = psiFile.getParent();
+
+            if (parent == null) {
+                continue;
+            }
 
             if (root.equals(parent)) {
 

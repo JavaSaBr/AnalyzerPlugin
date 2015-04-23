@@ -23,11 +23,15 @@ public class ProjectComponentState {
     }
 
     public void addMarker(SecurityMarkerImpl marker) {
-        this.markers.add(marker);
+        synchronized (markers) {
+            markers.add(marker);
+        }
     }
 
     public void clear() {
-        this.markers.clear();
+        synchronized (markers) {
+            markers.clear();
+        }
     }
 
     @Override

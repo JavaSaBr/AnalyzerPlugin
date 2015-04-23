@@ -48,15 +48,32 @@ public class SeverityTreeNode extends AbstractTreeNode {
         for (SecurityMarker marker : markers) {
 
             PsiFile psiFile = psiManager.findFile(marker.getFile());
-            Module module = ModuleUtil.findModuleForFile(marker.getFile(), project);
 
+            if (psiFile == null) {
+                continue;
+            }
+
+            Module module = ModuleUtil.findModuleForFile(marker.getFile(), project);
             VirtualFile baseDir = project.getBaseDir();
 
+            if (baseDir == null) {
+                continue;
+            }
+
             if (module != null) {
-                baseDir = module.getModuleFile().getParent();
+
+                VirtualFile moduleFile = module.getModuleFile();
+
+                if (moduleFile != null && moduleFile.getParent() != null) {
+                    baseDir = moduleFile.getParent();
+                }
             }
 
             PsiDirectory root = psiFile.getParent();
+
+            if (root == null) {
+                continue;
+            }
 
             while (root.getParent() != null) {
 

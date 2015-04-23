@@ -12,12 +12,9 @@ import javax.swing.tree.TreePath;
  */
 public class MarkerTreeModel implements TreeModel {
 
-    private Project project;
-
     private AbstractTreeNode root;
 
     public MarkerTreeModel(Project project) {
-        this.project = project;
         this.root = new ProjectTreeNode(project);
         this.root.loadChilds();
     }

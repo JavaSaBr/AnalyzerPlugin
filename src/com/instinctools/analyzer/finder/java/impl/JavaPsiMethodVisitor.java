@@ -5,7 +5,6 @@ import com.instinctools.analyzer.model.match.method.Method;
 import com.instinctools.analyzer.model.match.qualified.QualifiedName;
 import com.instinctools.analyzer.model.rule.Rule;
 import com.instinctools.analyzer.service.MarkerService;
-import com.intellij.lang.ASTNode;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
@@ -58,14 +57,22 @@ public class JavaPsiMethodVisitor extends JavaElementVisitor {
         super.visitMethodCallExpression(expression);
 
         PsiReferenceExpression methodExpression = expression.getMethodExpression();
+
+        if (methodExpression == null) {
+            return;
+        }
+
         PsiReference reference = methodExpression.getReference();
+
+        if (reference == null) {
+            return;
+        }
+
         PsiElement result = reference.resolve();
 
         if (result == null) {
             return;
         }
-
-        ASTNode node = methodExpression.getNode();
 
         PsiElement methodClass = result.getContext();
         String methodClassName = null;

@@ -37,6 +37,14 @@ public class AnalyzerApplicationComponent implements ApplicationComponent, Persi
         return ruleService;
     }
 
+    public MarkerService getMarkerService() {
+        return markerService;
+    }
+
+    public StandardService getStandardService() {
+        return standardService;
+    }
+
     public void disposeComponent() {
         // TODO: insert component disposal logic here
     }

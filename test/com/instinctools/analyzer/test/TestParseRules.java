@@ -1,8 +1,8 @@
 package com.instinctools.analyzer.test;
 
-import com.instonctools.analyzer.builder.BuilderFactory;
-import com.instonctools.analyzer.builder.RuleBuilder;
-import com.instonctools.analyzer.builder.xml.impl.XmlURLRuleSource;
+import com.instinctools.analyzer.builder.BuilderFactory;
+import com.instinctools.analyzer.builder.RuleBuilder;
+import com.instinctools.analyzer.builder.xml.impl.XmlURLRuleSource;
 import org.junit.Test;
 
 import java.net.URL;

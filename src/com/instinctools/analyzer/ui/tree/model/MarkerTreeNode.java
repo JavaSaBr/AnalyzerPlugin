@@ -39,6 +39,10 @@ public class MarkerTreeNode extends AbstractTreeNode {
         FileDocumentManager documentManager = FileDocumentManager.getInstance();
         Document document = documentManager.getDocument(marker.getFile());
 
+        if (document == null) {
+            return;
+        }
+
         this.line = document.getLineNumber(textRange.getStartOffset());
     }
 
