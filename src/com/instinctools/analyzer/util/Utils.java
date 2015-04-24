@@ -69,7 +69,7 @@ public class Utils {
         });
     }
 
-    private static void updateEditors(final Project project, final boolean needRefresh) {
+    public static void updateEditors(final Project project, final boolean needRefresh) {
 
         if (needRefresh) {
             final DaemonCodeAnalyzer codeAnalyzer = DaemonCodeAnalyzer.getInstance(project);

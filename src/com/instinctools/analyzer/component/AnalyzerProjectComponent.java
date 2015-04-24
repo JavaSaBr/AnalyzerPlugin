@@ -6,12 +6,14 @@ import com.instinctools.analyzer.model.marker.impl.SecurityMarkerImpl;
 import com.intellij.openapi.components.*;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -37,6 +39,9 @@ public class AnalyzerProjectComponent implements ProjectComponent, PersistentSta
 
         final PsiManager psiManager = PsiManager.getInstance(project);
         psiManager.addPsiTreeChangeListener(new AnalyzerPsiTreeChangeListener(this));
+
+        VirtualFileManager virtualFileManager = VirtualFileManager.getInstance();
+        virtualFileManager.addVirtualFileListener(new AnalyzerVirtualFileListener(this));
     }
 
     public void disposeComponent() {
@@ -88,8 +93,18 @@ public class AnalyzerProjectComponent implements ProjectComponent, PersistentSta
     @Override
     public void loadState(final ProjectComponentState componentState) {
 
-        for (final SecurityMarker marker : componentState.getMarkers()) {
+        List<SecurityMarkerImpl> markers = componentState.getMarkers();
+
+        for (Iterator<SecurityMarkerImpl> iterator = markers.iterator(); iterator.hasNext(); ) {
+
+            SecurityMarkerImpl marker = iterator.next();
             marker.init();
+
+            VirtualFile file = marker.getFile();
+
+            if (file == null || !file.exists()) {
+                iterator.remove();
+            }
         }
 
         this.componentState = componentState;
