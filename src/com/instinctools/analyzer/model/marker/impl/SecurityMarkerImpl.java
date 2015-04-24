@@ -8,8 +8,7 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.util.xmlb.annotations.Property;
-
-import java.beans.Transient;
+import com.intellij.util.xmlb.annotations.Transient;
 
 /**
  * Created by ronn on 13.04.15.
